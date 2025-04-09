@@ -1,0 +1,5 @@
+com\mycompany\chuongtrinhdaotao\repository\repository.class
+com\mycompany\chuongtrinhdaotao\controller\index.class
+com\mycompany\chuongtrinhdaotao\model\model.class
+com\mycompany\chuongtrinhdaotao\ChuongTrinhDaoTao.class
+com\mycompany\chuongtrinhdaotao\service\service.class
