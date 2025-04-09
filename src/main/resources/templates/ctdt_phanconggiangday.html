@@ -194,7 +194,9 @@
                                 <td>30</td>
                                 <td>28</td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalSuaPCGD">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </button>
                                     <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Xóa</button>
                                 </td>
                             </tr>
@@ -228,7 +230,7 @@
                     </div>
                 </div>
                 
-                <!--Modal Phân Công Giảng Dạy-->
+                <!--Modal Thêm Phân Công Giảng Dạy-->
                 <div class="modal fade" id="modalPhanCongGiangDay" tabindex="-1" role="dialog" aria-labelledby="modalPhanCongGiangDayLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <form id="formPhanCongGiangDay" class="modal-content">
@@ -287,13 +289,74 @@
                     </div>
                   </div>
                 
+                <!--Modal Sửa Phân Công Giảng Dạy-->
+                <div class="modal fade" id="modalSuaPCGD" tabindex="-1" role="dialog" aria-labelledby="modalSuaPCGDLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <form id="formSuaPhanCong" class="modal-content">
+                        <div class="modal-header bg-warning text-white">
+                          <h5 class="modal-title" id="modalSuaPCGDLabel">Sửa Phân Công Giảng Dạy</h5>
+                          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                        <div class="modal-body">
+                          <input type="hidden" id="suaIDPhanCong" name="suaIDPhanCong">
+                            
+                          <div class="form-group">
+                            <label for="suaGiangVien">Giảng viên</label>
+                            <select class="form-control" id="suaGiangVien" name="suaGiangVien">
+                              <option value="" disabled selected>--- Chọn giảng viên ---</option>
+                              <option value="GV001">GV001 - Nguyễn Văn A</option>
+                              <option value="GV002">GV002 - Trần Thị B</option>
+                              <!-- Thêm tùy chọn khác -->
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="suaHocPhanPhanCong">Học phần</label>
+                            <select class="form-control" id="suaHocPhanPhanCong" name="suaHocPhanPhanCong">
+                              <option value="" disabled selected>--- Chọn học phần ---</option>
+                              <option value="HP101">HP101 - Nhập môn CSDL</option>
+                              <option value="HP102">HP102 - Lập trình C++</option>
+                              <!-- Thêm tùy chọn khác -->
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="suaHocKyPhanCong">Học kỳ</label>
+                            <input type="number" class="form-control" id="suaHocKyPhanCong" name="suaHocKyPhanCong">
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="suaSoTietThucHien">Số tiết thực hiện</label>
+                              <input type="number" class="form-control" id="suaSoTietThucHien" name="suaSoTietThucHien">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="suaSoTietThucTe">Số tiết thực tế</label>
+                              <input type="number" class="form-control" id="suaSoTietThucTe" name="suaSoTietThucTe">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Hủy
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                
                 <!-- Modal Thông Tin Cá Nhân -->
                 <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <form class="modal-content">
                       <div class="modal-header bg-success text-white">
                         <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -319,6 +382,7 @@
                     </form>
                   </div>
                 </div>
+            </div>
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
