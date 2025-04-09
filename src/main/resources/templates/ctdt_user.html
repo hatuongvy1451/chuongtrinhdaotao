@@ -191,7 +191,9 @@
                                 <td>vana@example.com</td>
                                 <td>Giảng viên</td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalSuaTaiKhoan">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </button>
                                     <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Xóa</button>
                                 </td>
                             </tr>
@@ -245,13 +247,59 @@
                   </div>
                 </div>
                 
+                <!-- Modal Sửa Tài khoản -->
+                <div class="modal fade" id="modalSuaTaiKhoan" tabindex="-1" role="dialog" aria-labelledby="modalSuaTaiKhoanLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <form id="formSuaTaiKhoan" class="modal-content">
+                      <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="modalSuaTaiKhoanLabel">Sửa Tài khoản</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="suaTenDN">Tên đăng nhập</label>
+                          <input type="text" class="form-control" id="suaTenDN" name="suaTenDN" readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="suaHoTen">Họ tên</label>
+                          <input type="text" class="form-control" id="suaHoTen" name="suaHoTen">
+                        </div>
+                        <div class="form-group">
+                          <label for="suaEmail">Email</label>
+                          <input type="email" class="form-control" id="suaEmail" name="suaEmail">
+                        </div>
+                        <div class="form-group">
+                          <label for="suaMatKhau">Mật khẩu</label>
+                          <input type="password" class="form-control" id="suaMatKhau" name="suaMatKhau">
+                        </div>
+                        <div class="form-group">
+                          <label for="suaVaiTro">Vai trò</label>
+                          <select class="form-control" id="suaVaiTro" name="suaVaiTro">
+                            <option value="" disabled selected>--- Chọn vai trò ---</option>
+                            <option value="0">User</option>
+                            <option value="2">Admin</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                          <i class="fas fa-times-circle"></i> Hủy
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                
                 <!-- Modal Thông Tin Cá Nhân -->
                 <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <form class="modal-content">
                       <div class="modal-header bg-success text-white">
                         <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -277,6 +325,7 @@
                     </form>
                   </div>
                 </div>
+            </div>
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
