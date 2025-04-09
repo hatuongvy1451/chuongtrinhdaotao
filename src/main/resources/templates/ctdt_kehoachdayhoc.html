@@ -190,7 +190,9 @@
                                 <td>1</td>
                                 <td>CS101</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" id="btnSua"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="btn btn-warning btn-sm" id="btnSua" data-toggle="modal" data-target="#modalSuaKHDH">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </button>
                                     <button class="btn btn-danger btn-sm" id="btnXoa"><i class="fas fa-trash"></i> Xóa</button>
                                 </td>
                             </tr>
@@ -198,7 +200,7 @@
                     </table>
                 </div>
                 
-                <!-- Modal Kế hoạch Dạy học -->
+                <!-- Modal Thêm Kế hoạch Dạy học -->
                 <div class="modal fade" id="modalKeHoachDayHoc" tabindex="-1" role="dialog" aria-labelledby="modalKeHoachDayHocLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg" role="document">
                     <form id="formKeHoachDayHoc" class="modal-content">
@@ -236,13 +238,53 @@
                 </div>
             </div>
                 
+                <!-- Modal Sửa Kế hoạch Dạy học -->
+                <div class="modal fade" id="modalSuaKHDH" tabindex="-1" role="dialog" aria-labelledby="modalSuaKHDHLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <form id="formSuaKeHoachDayHoc" class="modal-content">
+                        <div class="modal-header bg-warning text-white">
+                          <h5 class="modal-title" id="modalSuaKHDHLabel">Sửa Kế hoạch Dạy học</h5>
+                          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <input type="hidden" id="suaIDKeHoachDayHoc" name="suaIDKeHoachDayHoc"> 
+                            
+                          <div class="form-group">
+                            <label for="suaHocPhan">Học phần</label>
+                            <select class="form-control" id="suaHocPhan" name="suaHocPhan">
+                                <option value="" disabled selected>--- Chọn học phần ---</option>
+                                <option value="CSDL">1 - Cơ sở dữ liệu</option>
+                                <option value="CSLT">2 - Cơ sở lập trình</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="suaHK">Học kỳ thực hiện</label>
+                            <input type="number" class="form-control" id="suaHK" name="suaHK">
+                          </div>
+                          <div class="form-group">
+                            <label for="suaMaHPTruoc">Mã học phần trước</label>
+                            <input type="text" class="form-control" id="suaMaHPTruoc" name="suaMaHPTruoc">
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Hủy
+                          </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+                
                 <!-- Modal Thông Tin Cá Nhân -->
                 <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <form class="modal-content">
                       <div class="modal-header bg-success text-white">
                         <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -268,6 +310,7 @@
                     </form>
                   </div>
                 </div>
+            </div>
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
