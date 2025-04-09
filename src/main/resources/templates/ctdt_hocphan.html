@@ -200,7 +200,9 @@
                                 <td>30</td>
                                 <td>1</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" id="btnSua"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="btn btn-warning btn-sm" id="btnSua" data-toggle="modal" data-target="#modalSuaHocPhan">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </button>
                                     <button class="btn btn-danger btn-sm" id="btnXoa"><i class="fas fa-trash"></i> Xóa</button>
                                 </td>
                             </tr>
@@ -283,13 +285,87 @@
                   </div>
                 </div>
                 
+                <!-- Modal Sửa Học Phần -->
+                <div class="modal fade" id="modalSuaHocPhan" tabindex="-1" role="dialog" aria-labelledby="modalLabelSuaHocPhan" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <form id="formSuaHocPhan" class="modal-content">
+                      <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="modalLabelSuaHocPhan">Sửa Học Phần</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" id="suaIDHocPhan" name="suaIDHocPhan"> 
+                          
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="suaMaKhungCT">Khung chương trình</label>
+                            <select class="form-control" id="suaMaKhungCT" name="suaMaKhungCT">
+                              <option value="" disabled selected>-- Chọn Khung CT --</option>
+                              <option value="1">1 - Kỹ thuật phần mềm</option>
+                              <option value="2">2 - Hệ thống thông tin</option>
+                              <!-- Thêm các mã khác nếu có -->
+                            </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaMaHocPhan">Mã học phần</label>
+                            <input type="text" class="form-control" id="suaMaHocPhan" name="suaMaHocPhan" readonly>
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="suaTenHocPhan">Tên học phần</label>
+                            <input type="text" class="form-control" id="suaTenHocPhan" name="suaTenHocPhan">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaTinChi">Số tín chỉ</label>
+                            <input type="number" class="form-control" id="suaTinChi" name="suaTinChi" min="0">
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                          <div class="form-group col-md-3">
+                            <label for="suaLT">LT (Lý thuyết)</label>
+                            <input type="number" class="form-control" id="suaLT" name="suaLT" min="0">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="suaTH">TH (Thực hành)</label>
+                            <input type="number" class="form-control" id="suaTH" name="suaTH" min="0">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="suaTT">TT (Thí nghiệm)</label>
+                            <input type="number" class="form-control" id="suaTT" name="suaTT" min="0">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="suaTongTiet">Tổng tiết</label>
+                            <input type="number" class="form-control" id="suaTongTiet" name="suaTongTiet" readonly>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="suaHeSo">Hệ số</label>
+                          <input type="number" class="form-control" id="suaHeSo" name="suaHeSo" min="0" step="0.01">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Hủy
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                
                 <!-- Modal Thông Tin Cá Nhân -->
                 <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <form class="modal-content">
                       <div class="modal-header bg-success text-white">
                         <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -315,6 +391,7 @@
                     </form>
                   </div>
                 </div>
+            </div>
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
