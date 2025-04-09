@@ -181,6 +181,7 @@
                                 <th>Tài khoản</th>
                                 <th>Mã GV</th>
                                 <th>Tên giảng viên</th>
+                                <th>Email</th>
                                 <th>Chuyên môn</th>
                                 <th>Loại giảng viên</th>
                                 <th>Hành động</th>
@@ -190,16 +191,19 @@
                             <!-- Ví dụ dữ liệu mẫu -->
                             <tr>
                                 <td>1</td>
-                                <th>1</th>
+                                <td>1</td>
                                 <td>GV001</td>
                                 <td>Trần Thị Hoa</td>
+                                <td>tranthihoa@gmail.com</td>
                                 <td>Công nghệ phần mềm</td>
                                 <td>Cơ hữu</td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCapTaiKhoan">
                                         <i class="fas fa-user-plus"></i> Cấp TK
                                     </button>
-                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Sửa</button>
+                                    <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalSuaGV">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </button>
                                     <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Xóa</button>
                                 </td>
                             </tr>
@@ -227,6 +231,10 @@
                           <div class="form-group col-md-6">
                             <label for="tenGV">Tên giảng viên <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="tenGV" name="tenGV" required>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="emailGV">Email <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="emailGV" name="emailGV" required>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="chuyenMon">Chuyên môn <span class="text-danger">*</span></label>
@@ -257,8 +265,8 @@
                 <div class="modal fade" id="modalCapTaiKhoan" tabindex="-1" role="dialog" aria-labelledby="modalCapTKLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg" role="document">
                     <form id="formCapTaiKhoan" class="modal-content">
-                      <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="modalCapTKLabel">Thêm Tài khoản Giảng viên</h5>
+                      <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="modalCapTKLabel">Cấp Tài khoản Giảng viên</h5>
                         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -294,6 +302,58 @@
                     </form>
                   </div>
                 </div>
+                
+                <!-- Modal Sửa Giảng Viên -->
+                <div class="modal fade" id="modalSuaGV" tabindex="-1" role="dialog" aria-labelledby="modalSuaGVLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <form id="formSuaGV" class="modal-content">
+                      <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="modalSuaGVLabel">Sửa thông tin giảng viên</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <input type="hidden" id="idGV" name="idGV"> 
+
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="suaMaGV">Mã giảng viên</label>
+                            <input type="text" class="form-control" id="suaMaGV" name="maGV" readonly>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaTenGV">Tên giảng viên</label>
+                            <input type="text" class="form-control" id="suaTenGV" name="tenGV">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaEmailGV">Email</label>
+                            <input type="text" class="form-control" id="suaEmailGV" name="suaEmailGV">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaChuyenMon">Chuyên môn</label>
+                            <input type="text" class="form-control" id="suaChuyenMon" name="chuyenMon">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaLoaiGV">Loại giảng viên</label>
+                            <select class="form-control" id="suaLoaiGV" name="loaiGV">
+                              <option value="" disabled selected>--- Chọn loại giảng viên ---</option>
+                              <option value="Cơ hữu">Cơ hữu</option>
+                              <option value="Thỉnh giảng">Thỉnh giảng</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Cập nhật</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Hủy
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
                     
                     <!-- Modal Thông Tin Cá Nhân -->
                 <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
@@ -301,7 +361,7 @@
                     <form class="modal-content">
                       <div class="modal-header bg-success text-white">
                         <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
@@ -327,6 +387,7 @@
                     </form>
                   </div>
                 </div>
+            </div>
             <!-- End of Main Content -->
         </div>
         <!-- End of Content Wrapper -->
