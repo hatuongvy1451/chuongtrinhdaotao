@@ -39,11 +39,6 @@ public class index {
         return "ctdt_khungchuongtrinh";
     }
     
-    @GetMapping("/themkhungctdt")
-    public String themKhungCTDT() {
-        return "form_ThemKhungCTDT";
-    }
-    
     @GetMapping("/hocphan")
     public String hocPhan() {
         return "ctdt_hocphan";
