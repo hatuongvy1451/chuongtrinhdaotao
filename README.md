@@ -12,3 +12,4 @@
 - **templates**: giao diện html
 - **static**: chứa các mục về img, css, js
 - **application.properties**: cấu hình ứng dụng, kết nối csdl
+- **pom**: tích hợp thư viện
