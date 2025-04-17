@@ -172,11 +172,11 @@
                         <button class="btn btn-secondary mr-2"><i class="fas fa-file-import"></i> Nhập Excel</button>
                         <button class="btn btn-primary"><i class="fas fa-file-export"></i> Xuất Excel</button>
                     </div>
-
-                    <!-- Thanh tìm kiếm -->
+<!--
+                     Thanh tìm kiếm 
                     <div class="mb-3">
                         <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm theo mã hoặc tên giảng viên...">
-                    </div>
+                    </div>-->
 
                     <!-- Bảng danh sách giảng viên -->
                     <table class="table table-bordered table-hover bg-white shadow-sm" id="tableGiangVien">
@@ -194,16 +194,16 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <!-- Ví dụ dữ liệu mẫu -->
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>GV001</td>
-                                <td>Trần Thị Hoa</td>
-                                <td>tranthihoa@gmail.com</td>
-                                <td>Công nghệ phần mềm</td>
-                                <td>Cơ hữu</td>
-                                <td>Đang làm việc</td>
+                            <!-- Truyền dữ liệu từ data vào-->
+                            <tr th:each="gv : ${giangvien}">
+                                <td th:text="${gv.id}"></td>
+                                <td th:text="${gv.idTaiKhoan}"></td>
+                                <td th:text="${gv.maGiangVien}"></td>
+                                <td th:text="${gv.tenGiangVien}"></td>
+                                <td th:text="${gv.emailGiangVien}"></td>
+                                <td th:text="${gv.chuyenMon}"></td>
+                                <td th:text="${gv.loaiGiangVien}"></td>
+                                <td th:text="${gv.trangThai}"></td>
                                 <td>
                                     <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCapTaiKhoan">
                                         <i class="fas fa-user-plus"></i> Cấp TK
@@ -419,6 +419,29 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Thêm CSS DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- Thêm Script DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!--Tạo phân trang-->
+    <script>
+        $(document).ready(function(){
+            $('#tableGiangVien').DataTable({
+               "paging" :true, //bật phân trang
+               "pageLength": 7, //số lượng dòng mỗi trang
+               "lengthChange": false, //tắt thay đổi số lượng dòng mỗi trang
+               "info" : true, //hiển thị thông tin phân trang
+               "searching": true, //bật tìm kiếm
+               "ordering": true //bật sắp xếp
+            });
+        });
+        
+        
+    </script>
+
 
 </body>
 </html>

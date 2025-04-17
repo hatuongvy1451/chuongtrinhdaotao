@@ -4,10 +4,29 @@
  */
 package com.mycompany.chuongtrinhdaotao.service;
 
+import com.mycompany.chuongtrinhdaotao.model.de_cuong_chi_tiet;
+import com.mycompany.chuongtrinhdaotao.repository.de_cuong_chi_tiet_Repository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
- * @author Tuong Vy Ha
+ * @author Thu Huyen
  */
+@Service
 public class de_cuong_chi_tiet_Service {
+    
+    @Autowired
+    private de_cuong_chi_tiet_Repository deCuongChiTietRepository;
+    
+    public List<de_cuong_chi_tiet> getAllDeCuongChiTiet(){
+        return deCuongChiTietRepository.findAll();
+        
+    }
+    
+    
+    
+    
     
 }

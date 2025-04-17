@@ -49,10 +49,10 @@ public class index {
         return "ctdt_hocphan";
     }
     
-    @GetMapping("/decuongchitiet")
-    public String deCuongChiTiet() {
-        return "ctdt_decuongchitiet";
-    }
+//    @GetMapping("/decuongchitiet")
+//    public String deCuongChiTiet() {
+//        return "ctdt_decuongchitiet";
+//    }
     
 //    @GetMapping("/cotdiem")
 //    public String quanLyCotDiem() {
@@ -74,14 +74,14 @@ public class index {
         return "ctdt_phanconggiangday";
     }
     
-    @GetMapping("/nguoidung")
-    public String quanLyNguoiDung() {
-        return "ctdt_user";
-    }
+//    @GetMapping("/nguoidung")
+//    public String quanLyNguoiDung() {
+//        return "ctdt_user";
+//    }
     
-    @GetMapping("/giangvien")
-    public String giangVien() {
-        return "ctdt_giangvien";
-    }
+//    @GetMapping("/giangvien")
+//    public String giangVien() {
+//        return "ctdt_giangvien";
+//    }
 }
 

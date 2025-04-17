@@ -4,10 +4,15 @@
  */
 package com.mycompany.chuongtrinhdaotao.repository;
 
+import com.mycompany.chuongtrinhdaotao.model.user;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
- * @author Tuong Vy Ha
+ * @author Thu Huyen
  */
-public class user_Repository {
+@Repository
+public interface user_Repository  extends JpaRepository<user, Integer>{
     
 }
