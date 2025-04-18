@@ -4,10 +4,15 @@
  */
 package com.mycompany.chuongtrinhdaotao.repository;
 
+import com.mycompany.chuongtrinhdaotao.model.khoi_kien_thuc;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
- * @author Tuong Vy Ha
+ * @author Thu Huyen
  */
-public class khoi_kien_thuc_Repository {
+@Repository
+public interface khoi_kien_thuc_Repository extends JpaRepository<khoi_kien_thuc, Integer> {
     
 }

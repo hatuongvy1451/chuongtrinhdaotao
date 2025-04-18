@@ -4,10 +4,15 @@
  */
 package com.mycompany.chuongtrinhdaotao.repository;
 
+import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
- * @author Tuong Vy Ha
+ * @author Thu Huyen
  */
-public class hoc_phan_Repository {
+@Repository
+public interface hoc_phan_Repository extends JpaRepository<hoc_phan, Integer>{
     
 }

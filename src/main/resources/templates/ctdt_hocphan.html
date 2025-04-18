@@ -171,9 +171,9 @@
                     </div>
                     
                     <!-- Thanh tìm kiếm -->
-                    <div class="mb-3">
+<!--                    <div class="mb-3">
                         <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm theo mã hoặc tên học phần...">
-                    </div>
+                    </div>-->
 
                     <!-- Danh sách học phần -->
                     <table class="table table-bordered table-hover bg-white shadow-sm" id="tableHocPhan">
@@ -193,17 +193,17 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>DC001</td>
-                                <td>Triết học Mác Lê-nin</td>
-                                <td>3</td>
-                                <td>30</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>30</td>
-                                <td>1</td>
+                            <tr th:each="hocPhan : ${hocPhanList}"> 
+                                <td th:text="${hocPhan.id}"></td>
+                                <td th:text="${hocPhan.idKhungCT}"></td>
+                                <td th:text="${hocPhan.maHocPhan}"></td>
+                                <td th:text="${hocPhan.tenHocPhan}"></td>
+                                <td th:text="${hocPhan.soTinChi}"></td>
+                                <td th:text="${hocPhan.soTietLyThuyet}"></td>
+                                <td th:text="${hocPhan.soTietThucHanh}"></td>
+                                <td th:text="${hocPhan.soTietThucTap}"></td>
+                                <td th:text="${hocPhan.soTietCong}"></td>
+                                <td th:text="${hocPhan.heSoHocPhan}"></td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" id="btnSua" data-toggle="modal" data-target="#modalSuaHocPhan">
                                         <i class="fas fa-edit"></i> Sửa
@@ -409,6 +409,35 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Thêm CSS DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- Thêm Script DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!--Tạo phân trang-->
+    <script>
+        $(document).ready(function(){
+           $('#tableHocPhan') .DataTable({
+              paging : true,
+              pageLength: 7,
+              lengthChange: false,
+              info: false,
+              searching: true,
+              ordering: false,
+              language:{
+                  search: "Tìm kiếm",
+                  paginate: {
+                      previous: "Trước",
+                      next: "Sau"
+                  },
+                  infoEmpty: "Không có dữ liệu",
+                  zeroRecords: "Không tìm thấy kết quả phù hợp"
+              }
+           });
+        });
+        
+    </script>
 
 </body>
 </html>

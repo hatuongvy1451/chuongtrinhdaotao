@@ -39,15 +39,15 @@ public class index {
         return "ctdt_khungchuongtrinh";
     }
     
-    @GetMapping("/khoikienthuc")
-    public String khoiKienThuc() {
-        return "ctdt_khoikienthuc";
-    }
+//    @GetMapping("/khoikienthuc")
+//    public String khoiKienThuc() {
+//        return "ctdt_khoikienthuc";
+//    }
     
-    @GetMapping("/hocphan")
-    public String hocPhan() {
-        return "ctdt_hocphan";
-    }
+//    @GetMapping("/hocphan")
+//    public String hocPhan() {
+//        return "ctdt_hocphan";
+//    }
     
 //    @GetMapping("/decuongchitiet")
 //    public String deCuongChiTiet() {

@@ -487,17 +487,27 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <!--Tạo phân trang-->
+    
     <script>
-        $(document).ready(function(){
-           $("#tableDeCuongChiTiet") .DataTable({
-               "paging": true, //bật phân trang
-               "pageLength": 2, //số lượng dòng mỗi page
-               "lengthChange": false, //tắt thay đổi dòng
-               "ìnfo": true, //hiển thị thông tin phân trang
-               "searching": true, //bật tìm kiếm
-               "ordering": true //bật sắp xếp
-           })
+    $(document).ready(function() {
+        $('#tableDeCuongChiTiet').DataTable({
+            paging: true,
+            pageLength: 7,
+            lengthChange: false,
+            info: false,
+            searching: true,
+            ordering: false,
+            language: {
+                search: "Tìm kiếm:",
+                paginate: {
+                    previous: "Trước",
+                    next: "Sau"
+                },
+                infoEmpty: "Không có dữ liệu",
+                zeroRecords: "Không tìm thấy kết quả phù hợp!"
+            }
         });
+    });
     </script>
 
 </body>
