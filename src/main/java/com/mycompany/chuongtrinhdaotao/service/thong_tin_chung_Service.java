@@ -4,10 +4,26 @@
  */
 package com.mycompany.chuongtrinhdaotao.service;
 
+import com.mycompany.chuongtrinhdaotao.model.thong_tin_chung;
+import com.mycompany.chuongtrinhdaotao.repository.thong_tin_chung_Repository;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
- * @author Tuong Vy Ha
+ * @author Thu Huyen
  */
+@Service
 public class thong_tin_chung_Service {
+    
+    @Autowired
+    private thong_tin_chung_Repository thongTinChungRepository;
+    
+    //load all data
+    public List<thong_tin_chung> getAllThongTinChung(){
+        return thongTinChungRepository.findAll();
+    }
+    
     
 }

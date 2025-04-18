@@ -29,10 +29,10 @@ public class index {
         return "index"; // templates/index.html
     }
     
-    @GetMapping("/thongtinchung")
-    public String thongTinChung() {
-        return "ctdt_thongtinchung";
-    }
+//    @GetMapping("/thongtinchung")
+//    public String thongTinChung() {
+//        return "ctdt_thongtinchung";
+//    }
     
     @GetMapping("/khungchuongtrinh")
     public String khungChuongTrinh() {
