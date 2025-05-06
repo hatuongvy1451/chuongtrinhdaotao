@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -24,8 +26,9 @@ public class hoc_phan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "id_khungct", nullable = false)
-    private int idKhungCT;
+    @ManyToOne
+    @JoinColumn(name = "id_khungct", referencedColumnName = "id", nullable = false)
+    private khung_chuong_trinh khungChuongTrinh;
     
     @Column(name = "ma_hoc_phan", nullable = false)
     private String maHocPhan;
@@ -73,12 +76,12 @@ public class hoc_phan {
         this.id = id;
     }
 
-    public int getIdKhungCT() {
-        return idKhungCT;
+    public khung_chuong_trinh getKhungChuongTrinh() {
+        return khungChuongTrinh;
     }
 
-    public void setIdKhungCT(int idKhungCT) {
-        this.idKhungCT = idKhungCT;
+    public void setKhungChuongTrinh(khung_chuong_trinh khungChuongTrinh) {
+        this.khungChuongTrinh = khungChuongTrinh;
     }
 
     public String getMaHocPhan() {
