@@ -22,6 +22,6 @@ public interface phan_cong_giang_day_Repository extends JpaRepository<phan_cong_
     
     List<phan_cong_giang_day> findByGiangVien(giang_vien giangVien);
     
-    @Query("SELECT DISTINCT p.moNhom.id FROM phan_cong_giang_day p")
+    @Query("SELECT DISTINCT p.moNhom.id FROM phan_cong_giang_day p WHERE p.trangThai = 1")
     List<Long> findAllIdNhomDaPhanCong();
 }
