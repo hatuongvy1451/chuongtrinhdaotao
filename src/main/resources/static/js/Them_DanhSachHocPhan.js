@@ -11,7 +11,7 @@ function addDanhSachHocPhan(event) {
     const soTietThucTap = parseInt(document.getElementById('tt').value) || 0;
 
     const hocPhanData = {
-        idKhungCT: document.getElementById('maKhungCT').value,
+        khungChuongTrinh: { id: document.getElementById('maKhungCT').value },
         maHocPhan: document.getElementById('maHocPhan').value,
         tenHocPhan: document.getElementById('tenHocPhan').value,
         soTinChi: parseInt(document.getElementById('tinChi').value) || 0,
