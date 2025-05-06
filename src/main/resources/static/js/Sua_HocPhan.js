@@ -13,7 +13,7 @@ function suaHocPhan(id){
         })
         .then(data => {
             document.getElementById("suaIDHocPhan").value = data.id;
-            document.getElementById("suaMaKhungCT").value = data.idKhungCT;
+            document.getElementById("suaMaKhungCT").value = data.khungChuongTrinh.id;
             document.getElementById("suaMaHocPhan").value = data.maHocPhan;
             document.getElementById("suaTenHocPhan").value = data.tenHocPhan;
             document.getElementById("suaTinChi").value = data.soTinChi;
@@ -54,7 +54,7 @@ function capNhatHocPhan(event){
     
     const hocPhanData = {
         id: id,
-        idKhungCT: idKhungCT,
+        khungChuongTrinh: {id: idKhungCT},
         maHocPhan: maHocPhan,
         tenHocPhan: tenHocPhan,
         soTinChi: soTinChi,
