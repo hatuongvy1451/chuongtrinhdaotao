@@ -169,7 +169,9 @@
                         <button class="btn btn-success" data-toggle="modal" data-target="#modalThemGV">
                             <i class="fas fa-plus-circle"></i> Thêm
                         </button>
-                        <button class="btn btn-info mr-2"><i class="fas fa-chart-bar"></i> Thống kê</button>
+                        <button class="btn btn-info mr-2" data-toggle="modal" data-target="#modalThongKeGV">
+                            <i class="fas fa-chart-bar"></i> Thống kê
+                        </button>
 <!--                    <button class="btn btn-secondary mr-2"><i class="fas fa-file-import"></i> Nhập Excel</button>
                         <button class="btn btn-primary"><i class="fas fa-file-export"></i> Xuất Excel</button>-->
 
@@ -398,6 +400,29 @@
                     </form>
                   </div>
                 </div>
+                
+                <!-- Modal Thống kê giảng viên -->
+                <div class="modal fade" id="modalThongKeGV" tabindex="-1" role="dialog" aria-labelledby="thongKeGVLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="thongKeGVLabel">Thống kê giảng viên</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <ul class="list-group">
+                          <li class="list-group-item">Tổng số giảng viên: <strong th:text="${tongGiangVien}">0</strong></li>
+                          <li class="list-group-item">Số giảng viên cơ hữu: <strong th:text="${soCoHuu}">0</strong></li>
+                          <li class="list-group-item">Số giảng viên thỉnh giảng: <strong th:text="${soThinhGiang}">0</strong></li>
+                          <li class="list-group-item">Đang làm việc: <strong th:text="${soDangLam}">0</strong></li>
+                          <li class="list-group-item">Ngưng làm việc: <strong th:text="${soNgungLam}">0</strong></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                     
                 <!-- Modal Thông Tin Cá Nhân -->
                 <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
@@ -501,7 +526,5 @@
             });
         });
     </script>
-
-
 </body>
 </html>

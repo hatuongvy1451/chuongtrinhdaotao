@@ -5,7 +5,9 @@
 package com.mycompany.chuongtrinhdaotao.controller;
 
 import com.mycompany.chuongtrinhdaotao.model.khung_chuong_trinh;
+import com.mycompany.chuongtrinhdaotao.model.khung_chuong_trinh_kkt;
 import com.mycompany.chuongtrinhdaotao.service.khung_chuong_trinh_Service;
+import com.mycompany.chuongtrinhdaotao.service.khung_chuong_trinh_kkt_Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +24,20 @@ public class khung_chuong_trinh_Controller {
     @Autowired
     private khung_chuong_trinh_Service khungChuongTrinhService;
     
+    @Autowired
+    private khung_chuong_trinh_kkt_Service khungChuongTrinhKKTService;
+    
     //hiển thị danh sách khung chương trình
     @GetMapping("/khungchuongtrinh")
     public String getAllKhungChuongTrinh(Model model){
         List<khung_chuong_trinh> khungChuongTrinh = khungChuongTrinhService.getAllKhungChuongTrinh();
         model.addAttribute("khungChuongTrinhs", khungChuongTrinh);
+        
+        List<khung_chuong_trinh_kkt> khungChuongTrinhKKTS = khungChuongTrinhKKTService.getAllKhungChuongTrinhKKT();
+        model.addAttribute("khungChuongTrinhKKTS", khungChuongTrinhKKTS);
         return "ctdt_khungchuongtrinh";
-    } 
+    }
+    
+    
+    
 }

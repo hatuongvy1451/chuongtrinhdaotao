@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -22,10 +24,14 @@ public class khung_chuong_trinh_kkt{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "id_khungct", nullable = false)
-    private int idKhungCT;
-    @Column(name = "id_khoikienthuc", nullable = false)
-    private int idKhoiKT;
+   @ManyToOne
+    @JoinColumn(name = "id_khungct", referencedColumnName = "id", nullable = false)
+    private khung_chuong_trinh idKhungCT;
+   
+   @ManyToOne
+    @JoinColumn(name = "id_khoikienthuc", referencedColumnName = "id", nullable = false)
+    private khoi_kien_thuc idKhoiKT;
+   
     @Column(name = "so_tin_chi_bat_buoc", nullable = false)
     private int soTinChiBatBuoc;
     @Column(name = "so_tin_chi_tu_chon", nullable = false)
@@ -39,21 +45,23 @@ public class khung_chuong_trinh_kkt{
         this.id = id;
     }
 
-    public int getIdKhungCT() {
+    public khung_chuong_trinh getIdKhungCT() {
         return idKhungCT;
     }
 
-    public void setIdKhungCT(int idKhungCT) {
+    public void setIdKhungCT(khung_chuong_trinh idKhungCT) {
         this.idKhungCT = idKhungCT;
     }
 
-    public int getIdKhoiKT() {
+    public khoi_kien_thuc getIdKhoiKT() {
         return idKhoiKT;
     }
 
-    public void setIdKhoiKT(int idKhoiKT) {
+    public void setIdKhoiKT(khoi_kien_thuc idKhoiKT) {
         this.idKhoiKT = idKhoiKT;
     }
+
+    
 
     public int getSoTinChiBatBuoc() {
         return soTinChiBatBuoc;
@@ -70,4 +78,9 @@ public class khung_chuong_trinh_kkt{
     public void setSoTinChiTuChon(int soTinChiTuChon) {
         this.soTinChiTuChon = soTinChiTuChon;
     }
+    
+    
 }
+
+
+
