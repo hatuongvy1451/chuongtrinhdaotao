@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="js/An_Hien_MK.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .login-container {
+      margin-top: 100px;
+    }
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+      border-radius: 25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container login-container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4">Đăng nhập</h4>
+            
+            <!-- Hiển thị thông báo lỗi nếu đăng nhập sai -->
+            <div th:if="${thongBaoLoi}" class="alert alert-danger" role="alert">
+              <span th:text="${thongBaoLoi}"></span>
+            </div>
+            
+            <form th:action="@{/dangnhap}" method="post">
+              <div class="form-group">
+                <label for="tenDangNhap">Tên đăng nhập <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="tenDangNhap" name="tenDangNhap" th:value="${tenDangNhap}" required>
+              </div>
+              <div class="form-group position-relative">
+                <label for="matKhau">Mật khẩu <span class="text-danger">*</span></label>
+                <input type="password" class="form-control" id="matKhau" name="matKhau" th:value="${matKhau}" required>
+                <span toggle="#matKhau" class="fa fa-fw fa-eye field-icon toggle-password" 
+                      style="position: absolute; top: 38px; right: 15px; cursor: pointer;"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Quản lý Chương trình đào tạo</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Thêm CSS DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">ADMIN</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="/home">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Trang chủ</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Thông tin chung -->
+            <div class="sidebar-heading">Thông tin chung</div>
+            <li class="nav-item">
+                <a class="nav-link" href="/thongtinchung">
+                    <i class="fas fa-info-circle"></i>
+                    <span>CTĐT - Thông tin chung</span></a>
+            </li>
+
+            <!-- Khung chương trình & học phần -->
+            <div class="sidebar-heading">Khung CT & Học phần</div>
+            <li class="nav-item">
+                <a class="nav-link" href="/khungchuongtrinh">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Khung chương trình</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/khoikienthuc">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Khối kiến thức</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/hocphan">
+                    <i class="fas fa-book"></i>
+                    <span>Danh sách học phần</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/decuongchitiet">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Đề cương chi tiết</span></a>
+            </li>
+
+            <!-- Kế hoạch đào tạo -->
+            <div class="sidebar-heading">Kế hoạch đào tạo</div>
+            <li class="nav-item">
+                <a class="nav-link" href="/kehoachdayhoc">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Kế hoạch dạy học</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/kehoachmonhom">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Kế hoạch mở nhóm lớp</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/phanconggiangday">
+                    <i class="fas fa-user-clock"></i>
+                    <span>Phân công giảng dạy</span></a>
+            </li>
+
+            <!-- Quản lý giảng viên -->
+            <div class="sidebar-heading" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">Giảng viên</div>
+            <li class="nav-item" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+                <a class="nav-link" href="/giangvien">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Danh sách giảng viên</span></a>
+            </li>
+            
+            <!--Quản lý người dùng-->
+            <div class="sidebar-heading" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">Người dùng</div>
+            <li class="nav-item" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+                <a class="nav-link" href="/nguoidung">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Quản lý người dùng</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="'Xin chào! ' + ${session.nguoiDungDangNhap.hoTen}"></span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalThongTinCaNhan">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Thông tin cá nhân
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/dangnhap">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Quản lý học phần -->
+                <div class="container-fluid mt-4">
+                    <h2 class="mb-4">Quản lý Danh sách Học phần</h2>
+
+                    <!-- Các nút thao tác -->
+                    <div class="mb-3">
+                        <button class="btn btn-success" id="btnThem" data-toggle="modal" data-target="#modalThemHocPhan"
+                                th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+                            <i class="fas fa-plus-circle"></i> Thêm
+                        </button>
+                    </div>
+                    
+                    <!-- Thanh tìm kiếm -->
+<!--                    <div class="mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm theo mã hoặc tên học phần...">
+                    </div>-->
+
+                    <!-- Danh sách học phần -->
+                    <table class="table table-bordered table-hover bg-white shadow-sm" id="tableHocPhan">
+                        <thead class="thead-dark text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Khung CT</th>
+                                <th>Mã HP</th>
+                                <th>Tên Học Phần</th>
+                                <th>Tín chỉ</th>
+                                <th>LT</th>
+                                <th>TH</th>
+                                <th>TT</th>
+                                <th>Tổng Tiết</th>
+                                <th>Hệ số</th>
+                                <th>Mã HP Trước</th>
+                                <th>Trạng thái</th>
+                                <th th:if="${session.nguoiDungDangNhap.vaiTro == 0}">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr th:each="hocPhan : ${hocPhanList}"> 
+                                <td th:text="${hocPhan.id}"></td>
+                                <td th:text="${hocPhan.idKhungCT}"></td>
+                                <td th:text="${hocPhan.maHocPhan}"></td>
+                                <td th:text="${hocPhan.tenHocPhan}"></td>
+                                <td th:text="${hocPhan.soTinChi}"></td>
+                                <td th:text="${hocPhan.soTietLyThuyet}"></td>
+                                <td th:text="${hocPhan.soTietThucHanh}"></td>
+                                <td th:text="${hocPhan.soTietThucTap}"></td>
+                                <td th:text="${hocPhan.soTietCong}"></td>
+                                <td th:text="${hocPhan.heSoHocPhan}"></td>
+                                <td th:text="${hocPhan.maHPTruoc}"></td>
+                                <td th:text="${hocPhan.trangThai == 1 ? 'Đang hoạt động' : 'Đã hủy'}"></td>
+                                <td th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+                                    <button class="btn btn-warning btn-sm" id="btnSua" data-toggle="modal" data-target="#modalSuaHocPhan"
+                                            th:onclick="'suaHocPhan(' + ${hocPhan.id} + ')'">
+                                        <i class="fas fa-edit"></i> Sửa
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" id="btnXoa" th:onclick="'xoaHocPhan(' + ${hocPhan.id} + ')'">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Modal Thêm Học Phần -->
+                <div class="modal fade" id="modalThemHocPhan" tabindex="-1" role="dialog" aria-labelledby="modalLabelThemHocPhan" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <form id="formThemHocPhan" class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                          <h5 class="modal-title" id="modalLabelThemHocPhan">Thêm Học Phần</h5>
+                          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-row">
+                            <!-- Mã khung chương trình -->
+                            <div class="form-group col-md-6">
+                              <label for="maKhungCT">Khung chương trình <span class="text-danger">*</span></label>
+                              <select class="form-control" id="maKhungCT" name="maKhungCT" required>
+                                <option value="" disabled selected>-- Chọn Khung CT --</option>
+                                <th:block th:each="khungChuongTrinh : ${khungChuongTrinhs}">
+                                    <option th:value="${khungChuongTrinh.id}" th:text="${khungChuongTrinh.maKhoi + ' - ' + khungChuongTrinh.tenKhoi}"></option>
+                                </th:block>
+                                
+                                <!-- Thêm các mã khung chương trình khác -->
+                              </select>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                              <label for="maHocPhan">Mã học phần <span class="text-danger">*</span></label>
+                              <input type="text" class="form-control" id="maHocPhan" name="maHocPhan" required>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                              <label for="tenHocPhan">Mã học phần trước (Nếu không có có thể bỏ trống)</label>
+                              <input type="text" class="form-control" id="mahocPhanTruoc" name="tenHocPhan">
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                              <label for="tenHocPhan">Tên học phần <span class="text-danger">*</span></label>
+                              <input type="text" class="form-control" id="tenHocPhan" name="tenHocPhan" required>
+                            </div>
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="tinChi">Số tín chỉ <span class="text-danger">*</span></label>
+                              <input type="number" class="form-control" id="tinChi" name="tinChi" min="0" required>
+                            </div>
+                                
+                            <div class="form-group col-md-6">
+                                <label for="heSo">Hệ số <span class="text-danger">*</span></label>
+                                <input type="number" step="0.1" class="form-control" id="heSo" name="heSo" min="0" required>
+                            </div>
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-3">
+                              <label for="lt">LT (Lý thuyết)</label>
+                              <input type="number" class="form-control" id="lt" name="lt" min="0">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label for="th">TH (Thực hành)</label>
+                              <input type="number" class="form-control" id="th" name="th" min="0">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label for="tt">TT (Thực tập)</label>
+                              <input type="number" class="form-control" id="tt" name="tt" min="0">
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label for="tongTiet">Tổng tiết</label>
+                              <input type="number" class="form-control" id="tongTiet" name="tongTiet" min="0" required readonly>
+                            </div>
+                          </div>
+                            
+                            <div class="form-group">
+                              <label for="trangThaiHocPhan">Trạng thái</label>
+                              <input type="text" class="form-control" id="trangThaiHocPhan" name="trangThaiHocPhan" value="Đang hoạt động" readonly>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Hủy
+                          </button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+                
+                <!-- Modal Sửa Học Phần -->
+                <div class="modal fade" id="modalSuaHocPhan" tabindex="-1" role="dialog" aria-labelledby="modalLabelSuaHocPhan" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <form id="formSuaHocPhan" class="modal-content">
+                      <div class="modal-header bg-warning text-white">
+                        <h5 class="modal-title" id="modalLabelSuaHocPhan">Sửa Học Phần</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" id="suaIDHocPhan" name="suaIDHocPhan"> 
+                          
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="suaMaKhungCT">Khung chương trình</label>
+                            <input type="text" class="form-control" id="suaMaKhungCT" name="suaMaKhungCT" readonly>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaMaHocPhan">Mã học phần</label>
+                            <input type="text" class="form-control" id="suaMaHocPhan" name="suaMaHocPhan" readonly>
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="suaTenHocPhan">Tên học phần</label>
+                            <input type="text" class="form-control" id="suaTenHocPhan" name="suaTenHocPhan">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="suaTinChi">Số tín chỉ</label>
+                            <input type="number" class="form-control" id="suaTinChi" name="suaTinChi" min="0">
+                          </div>
+                        </div>
+
+                        <div class="form-row">
+                          <div class="form-group col-md-3">
+                            <label for="suaLT">LT (Lý thuyết)</label>
+                            <input type="number" class="form-control" id="suaLT" name="suaLT" min="0">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="suaTH">TH (Thực hành)</label>
+                            <input type="number" class="form-control" id="suaTH" name="suaTH" min="0">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="suaTT">TT (Thí nghiệm)</label>
+                            <input type="number" class="form-control" id="suaTT" name="suaTT" min="0">
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label for="suaTongTiet">Tổng tiết</label>
+                            <input type="number" class="form-control" id="suaTongTiet" name="suaTongTiet" readonly>
+                          </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="suaHeSo">Hệ số</label>
+                              <input type="number" class="form-control" id="suaHeSo" name="suaHeSo" min="1">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="suaMaHPTruoc">Mã học phần trước</label>
+                              <input type="text" class="form-control" id="suaMaHPTruoc" name="suaMaHPTruoc" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                              <label for="suaTrangThaiHocPhan">Trạng thái</label>
+                              <select class="form-control" id="suaTrangThaiHocPhan" name="suaTrangThaiHocPhan">
+                                <option value="1">Đang hoạt động</option>
+                                <option value="0">Đã hủy</option>
+                              </select>
+                            </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning" onclick="capNhatHocPhan(event)">
+                            <i class="fas fa-save"></i> Cập nhật
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Hủy
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                
+                <!-- Modal Thông Tin Cá Nhân -->
+                <div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <form class="modal-content" th:action="@{/capnhat-thongtin}" method="post">
+                      <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <!-- Nội dung form -->
+                        <div class="form-group">
+                          <label for="tenDN">Tên đăng nhập</label>
+                          <input type="text" class="form-control" id="tenDN" name="tenDN" th:value="${session.nguoiDungDangNhap.tenDangNhap}" readonly>
+                        </div>
+                        <div class="form-group">
+                          <label for="hoTen">Họ tên</label>
+                          <input type="text" class="form-control" id="hoTen" name="hoTen" th:value="${session.nguoiDungDangNhap.hoTen}">
+                        </div>
+                        <div class="form-group">
+                          <label for="emailTT">Email</label>
+                          <input type="email" class="form-control" id="emailTT" name="emailTT" th:value="${session.nguoiDungDangNhap.email}">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" onclick="submitFormVaThongBao()">Cập nhật</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Bootstrap core JavaScript-->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="js/Sua_ThongTin.js"></script>
+    
+    <script src="js/Them_DanhSachHocPhan.js"></script>
+    
+    <script src="js/Sua_HocPhan.js"></script>
+    
+    <script src="js/Xoa_HocPhan.js"></script>
+
+    <!-- Thêm Script DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!--Tạo phân trang-->
+    <script>
+        $(document).ready(function(){
+           $('#tableHocPhan') .DataTable({
+              paging : true,
+              pageLength: 5,
+              lengthChange: false,
+              info: false,
+              searching: true,
+              ordering: false,
+              language:{
+                  search: "Tìm kiếm",
+                  paginate: {
+                      previous: "Trước",
+                      next: "Sau"
+                  },
+                  infoEmpty: "Không có dữ liệu",
+                  zeroRecords: "Không tìm thấy kết quả phù hợp"
+              }
+           });
+        });
+        
+    </script>
+
+</body>
+</html>

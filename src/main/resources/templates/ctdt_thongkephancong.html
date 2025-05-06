@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bảng phân công giảng dạy</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-gray: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .print-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .total-row {
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .print-info {
+            font-size: 13px;
+            color: #666;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                padding: 0;
+                background: none;
+            }
+
+            .header {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 10px;
+            }
+
+            .action-bar, .no-print {
+                display: none;
+            }
+
+            .print-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            table {
+                font-size: 11pt;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            @page {
+                size: A4 landscape;
+                margin: 1cm;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>BẢNG PHÂN CÔNG GIẢNG DẠY</h1>
+</div>
+
+<div class="action-bar">
+    <div class="print-info no-print">
+        Hệ thống quản lý đào tạo - <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+    </div>
+    <button onclick="window.print()" class="btn btn-primary no-print">
+        <i class="fas fa-print"></i> In báo cáo
+    </button>
+</div>
+
+<div class="print-container">
+    <table>
+        <thead>
+        <tr>
+            <th rowspan="2">STT</th>
+            <th rowspan="2">Mã GV</th>
+            <th rowspan="2">Tên giảng viên</th>
+            <th rowspan="2">Chuyên môn</th>
+            <th rowspan="2">Tên học phần</th>
+            <th rowspan="2">Mã học phần</th>
+            <th rowspan="2">Số TC</th>
+            <th rowspan="2">Số tiết HP</th>
+            <th colspan="3">Số lớp theo học kỳ</th>
+            <th rowspan="2">Tổng tiết</th>
+        </tr>
+        <tr>
+            <th>HK1</th>
+            <th>HK2</th>
+            <th>HK3</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, iter : ${danhSach}" th:class="${item.totalRow} ? 'total-row' : ''">
+            <td th:if="${!item.totalRow}">
+                <span th:if="${item.teacherSequenceNumber != null}" th:text="${item.teacherSequenceNumber}"></span>
+            </td>
+            <td th:if="${item.totalRow}" colspan="4" class="text-left">Tổng cộng</td>
+
+            <!-- Teacher info cells - only show if first row for this teacher or if previous row was a different teacher -->
+            <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.maGiangVien : ''}"></td>
+            <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.tenGiangVien : ''}"></td>
+            <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.chuyenMon : ''}"></td>
+
+            <td class="text-left" th:text="${item.totalRow} ? '' : ${item.tenHocPhan}"></td>
+            <td th:text="${item.totalRow} ? '' : ${item.maHocPhan}"></td>
+            <td th:text="${item.totalRow} ? '' : ${item.soTinChi}"></td>
+            <td th:text="${item.totalRow} ? '' : ${item.soTietHP}"></td>
+
+            <td th:text="${item.totalRow} ? '' : ${item.soLopHK1}"></td>
+            <td th:text="${item.totalRow} ? '' : ${item.soLopHK2}"></td>
+            <td th:text="${item.totalRow} ? '' : ${item.soLopHK3}"></td>
+
+            <td th:text="${item.totalRow} ? ${item.tongTiet} : ${item.soTietHP * item.tongSoLop}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="footer no-print" style="margin-top: 20px; text-align: center; font-size: 12px; color: #777;">
+    <p>Bản quyền © 2023 - Trường Đại học của bạn | Phiên bản 1.0</p>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<script>
+
+
+        // Make header sticky when scrolling
+        const table = document.querySelector('table');
+        const ths = table.querySelectorAll('thead th');
+        table.addEventListener('scroll', function() {
+            const scrollTop = table.scrollTop;
+            ths.forEach(th => {
+                th.style.transform = scrollTop > 0 ? 'translateY(' + scrollTop + 'px)' : '';
+            });
+        });
+    });
+</script>
+</body>
+</html>

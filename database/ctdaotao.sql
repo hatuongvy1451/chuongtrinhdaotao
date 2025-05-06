@@ -1,0 +1,640 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th4 28, 2025 lúc 09:52 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Cơ sở dữ liệu: `ctdaotao`
+--
+CREATE DATABASE IF NOT EXISTS `ctdaotao` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `ctdaotao`;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_cotdiem`
+--
+
+CREATE TABLE `ctdt_cotdiem` (
+  `id` int(11) NOT NULL,
+  `id_decuongct` int(11) NOT NULL,
+  `ten_cot_diem` varchar(255) NOT NULL,
+  `ty_le_phan_tram` float NOT NULL,
+  `hinh_thuc` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_cotdiem`
+--
+
+INSERT INTO `ctdt_cotdiem` (`id`, `id_decuongct`, `ten_cot_diem`, `ty_le_phan_tram`, `hinh_thuc`) VALUES
+(1, 1, 'Điểm chuyên cần', 10, 'Điểm danh'),
+(2, 1, 'Điểm thảo luận', 20, 'Thảo luận nhóm'),
+(3, 1, 'Điểm kiểm tra', 20, 'Trắc nghiệm'),
+(4, 1, 'Điểm thi cuối kỳ', 50, 'Tự luận'),
+(5, 2, 'Điểm chuyên cần', 10, 'Điểm danh'),
+(6, 2, 'Điểm bài tập', 20, 'Bài tập về nhà'),
+(7, 2, 'Điểm kiểm tra', 20, 'Trắc nghiệm + Tự luận'),
+(8, 2, 'Điểm thi thực hành', 50, 'Bài tập lớn'),
+(9, 3, 'Điểm chuyên cần', 10, 'Điểm danh'),
+(10, 3, 'Điểm bài tập', 15, 'Bài tập về nhà'),
+(11, 3, 'Điểm kiểm tra', 15, 'Trắc nghiệm'),
+(12, 3, 'Điểm đồ án', 20, 'Đồ án nhóm'),
+(13, 3, 'Điểm thi thực hành', 40, 'Thực hành cá nhân'),
+(14, 4, 'Điểm chuyên cần', 10, 'Điểm danh'),
+(15, 4, 'Điểm thảo luận', 10, 'Thảo luận nhóm'),
+(16, 4, 'Điểm kiểm tra', 20, 'Trắc nghiệm'),
+(17, 4, 'Điểm đồ án', 30, 'Đồ án nhóm'),
+(18, 4, 'Điểm thi cuối kỳ', 30, 'Tự luận');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_decuongchitiet`
+--
+
+CREATE TABLE `ctdt_decuongchitiet` (
+  `id` int(11) NOT NULL,
+  `id_hocphan` int(11) NOT NULL,
+  `mo_ta` varchar(255) NOT NULL,
+  `muc_tieu` varchar(255) NOT NULL,
+  `chuong_noi_dung` varchar(255) NOT NULL,
+  `phuong_phap_giang_day` varchar(255) NOT NULL,
+  `phuong_phap_danh_gia` varchar(255) NOT NULL,
+  `tai_lieu_tham_khao` varchar(255) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_decuongchitiet`
+--
+
+INSERT INTO `ctdt_decuongchitiet` (`id`, `id_hocphan`, `mo_ta`, `muc_tieu`, `chuong_noi_dung`, `phuong_phap_giang_day`, `phuong_phap_danh_gia`, `tai_lieu_tham_khao`, `trang_thai`) VALUES
+(1, 1, 'Học phần này cung cấp nguyên tắc cơ bản và cách tiếp cận của triết học Mác-Lênin.', 'Giúp sinh viên hiểu và vận dụng các nguyên lý triết học vào phân tích thực tế.', 'Chương 1: Khái niệm triết học\nChương 2: Phép biện chứng duy vật\nChương 3: Lịch sử triết học Mác', 'Bài giảng lý thuyết, thảo luận nhóm', 'Kiểm tra giữa kỳ và bài luận cuối kỳ', 'Triết học Mác-Lênin, NXB Giáo dục, 2021', 1),
+(2, 2, 'Nội dung cung cấp kiến thức về quy luật kinh tế và cơ sở lý luận kinh tế chính trị.', 'Hiểu được mối quan hệ giữa sản xuất, phân phối, và tiêu dùng trong nền kinh tế.', 'Chương 1: Quy luật giá trị\nChương 2: Lý thuyết lao động giá trị\nChương 3: Kinh tế vĩ mô theo Mác', 'Thảo luận và bài tập nhóm', 'Bài tập nhóm và bài kiểm tra cuối kỳ', 'Kinh tế chính trị, NXB Chính trị Quốc gia, 2020', 1),
+(3, 3, 'Học phần nghiên cứu về sự hình thành và phát triển của chủ nghĩa xã hội khoa học.', 'Tăng cường khả năng phân tích các quan điểm lý luận về chủ nghĩa xã hội.', 'Chương 1: Tư tưởng Mác về chủ nghĩa xã hội\nChương 2: Lịch sử phát triển CNXH\nChương 3: Ứng dụng CNXH vào thực tiễn', 'Trình bày thuyết trình, nghiên cứu tình huống', 'Thuyết trình và bài kiểm tra cuối kỳ', 'Chủ nghĩa xã hội khoa học, NXB Giáo dục, 2021', 1),
+(4, 4, 'Giới thiệu các kiến thức cơ bản về quốc phòng và an ninh.', 'Trang bị kỹ năng cơ bản và nâng cao ý thức trách nhiệm đối với quốc phòng.', 'Chương 1: Kiến thức quốc phòng cơ bản\nChương 2: Quân sự căn bản\nChương 3: Quản lý quốc phòng', 'Thực hành quân sự và học lý thuyết', 'Thực hành quân sự và bài kiểm tra cuối kỳ', 'Tài liệu quốc phòng, NXB Quốc phòng, 2019', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_giangvien`
+--
+
+CREATE TABLE `ctdt_giangvien` (
+  `id` int(11) NOT NULL,
+  `id_taikhoan` int(11) DEFAULT NULL,
+  `ma_giang_vien` varchar(255) NOT NULL,
+  `ten_giang_vien` varchar(255) NOT NULL,
+  `email_giang_vien` varchar(255) NOT NULL,
+  `chuyen_mon` varchar(255) NOT NULL,
+  `loai_giang_vien` int(11) NOT NULL COMMENT '0: Thỉnh giảng, 1: Cơ hữu',
+  `trang_thai` int(11) NOT NULL COMMENT '0: Ngưng làm việc, 1: Đang làm việc'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_giangvien`
+--
+
+INSERT INTO `ctdt_giangvien` (`id`, `id_taikhoan`, `ma_giang_vien`, `ten_giang_vien`, `email_giang_vien`, `chuyen_mon`, `loai_giang_vien`, `trang_thai`) VALUES
+(1, 2, 'GV001', 'Lê Minh D', 'leminhd@gmail.com', 'Lập trình phần mềm nâng cao', 1, 1),
+(2, 3, 'GV002', 'Hoàng Ngọc E', 'hoangngoce@gmail.com', 'Hệ thống thông tin', 1, 1),
+(3, 4, 'GV003', 'Nguyễn Văn F', 'nguyenvanf@gmail.com', 'Mạng máy tính và bảo mật', 1, 1),
+(4, 5, 'GV004', 'Dương Văn J', 'duongvanj@gmail.com', 'Phát triển ứng dụng web', 1, 1),
+(5, 6, 'GV005', 'Nguyễn Văn A', 'nguyenvana@gmail.com', 'Trí tuệ nhân tạo và Học máy', 1, 1),
+(6, 7, 'GV006', 'Phạm Thị L', 'phamthil@gmail.com', 'Hệ thống nhúng', 1, 1),
+(7, 8, 'GV007', 'Ngô Văn H', 'ngovanh@gmail.com', 'Bảo mật và an toàn thông tin', 0, 1),
+(8, 9, 'GV008', 'Lê Thị Thúy H', 'lethithuyh@gmail.com', 'Blockchain và Công nghệ số', 0, 1),
+(9, 10, 'GV009', 'Trần Đức M', 'tranducm@gmail.com', 'Phân tích dữ liệu lớn (Big Data)', 0, 1),
+(10, 11, 'GV010', 'Hoàng Gia N', 'hoanggian@gmail.com', 'Lập trình di động', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_hocphan`
+--
+
+CREATE TABLE `ctdt_hocphan` (
+  `id` int(11) NOT NULL,
+  `id_khungct` int(11) NOT NULL,
+  `ma_hoc_phan` varchar(255) NOT NULL,
+  `ten_hoc_phan` varchar(255) NOT NULL,
+  `so_tin_chi` int(11) NOT NULL,
+  `so_tiet_ly_thuyet` int(11) DEFAULT NULL,
+  `so_tiet_thuc_hanh` int(11) DEFAULT NULL,
+  `so_tiet_thuc_tap` int(11) DEFAULT NULL,
+  `so_tiet_cong` int(11) NOT NULL,
+  `he_so_hocphan` int(11) NOT NULL,
+  `ma_hocphan_truoc` varchar(255) DEFAULT NULL,
+  `trang_thai` int(11) NOT NULL COMMENT '0: Đã hủy, 1: Đang hoạt động'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_hocphan`
+--
+
+INSERT INTO `ctdt_hocphan` (`id`, `id_khungct`, `ma_hoc_phan`, `ten_hoc_phan`, `so_tin_chi`, `so_tiet_ly_thuyet`, `so_tiet_thuc_hanh`, `so_tiet_thuc_tap`, `so_tiet_cong`, `he_so_hocphan`, `ma_hocphan_truoc`, `trang_thai`) VALUES
+(1, 1, 'DC001', 'Triết học Mác-Lênin', 3, 30, 0, 0, 30, 1, '', 1),
+(2, 1, 'DC002', 'Kinh tế chính trị Mác-Lênin', 2, 20, 0, 0, 20, 1, 'DC001', 1),
+(3, 1, 'DC003', 'Chủ nghĩa xã hội khoa học', 2, 20, 0, 0, 20, 1, '', 1),
+(4, 1, 'DC004', 'Giáo dục quốc phòng', 2, 20, 0, 0, 20, 1, '', 1),
+(5, 1, 'DC005', 'Tiếng Anh cơ bản', 3, 30, 0, 0, 30, 1, '', 1),
+(6, 2, 'CSN001', 'Cơ sở lập trình', 3, 20, 10, 0, 30, 1, '', 1),
+(7, 2, 'CSN002', 'Cơ sở dữ liệu', 4, 30, 15, 0, 45, 1, 'CSN001\r\n', 1),
+(8, 3, 'CN001', 'Kiểm thử phần mềm', 4, 30, 20, 0, 50, 1, '', 1),
+(9, 3, 'CN002', 'Xây dựng phần mềm theo mô hình phân lớp', 4, 30, 20, 0, 50, 1, 'CN001', 1),
+(10, 4, 'TN001', 'Đồ án tốt nghiệp', 5, 50, 0, 0, 50, 1, 'CN002', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_kehoachdayhoc`
+--
+
+CREATE TABLE `ctdt_kehoachdayhoc` (
+  `id` int(11) NOT NULL,
+  `id_thongtin` int(11) NOT NULL,
+  `id_hocphan` int(11) NOT NULL,
+  `hoc_ky_thuc_hien` int(11) NOT NULL,
+  `nam_hoc` varchar(255) NOT NULL,
+  `trang_thai` int(11) NOT NULL COMMENT '0: Đã kết thúc, 1: Đang hoạt động'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_kehoachdayhoc`
+--
+
+INSERT INTO `ctdt_kehoachdayhoc` (`id`, `id_thongtin`, `id_hocphan`, `hoc_ky_thuc_hien`, `nam_hoc`, `trang_thai`) VALUES
+(1, 1, 1, 1, '2023', 1),
+(2, 1, 2, 1, '2023', 1),
+(3, 2, 3, 1, '2023', 1),
+(4, 2, 4, 2, '2024', 1),
+(5, 3, 5, 2, '2024', 1),
+(6, 3, 6, 2, '2024', 1),
+(7, 4, 7, 3, '2024', 1),
+(8, 4, 8, 4, '2025', 1),
+(9, 5, 9, 5, '2025', 1),
+(10, 5, 10, 6, '2025', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_kehoachmonhom`
+--
+
+CREATE TABLE `ctdt_kehoachmonhom` (
+  `id` int(11) NOT NULL,
+  `ma_nhom` varchar(255) NOT NULL,
+  `id_hocphan` int(11) NOT NULL,
+  `nam_hoc` varchar(255) NOT NULL,
+  `hoc_ky` int(11) NOT NULL,
+  `sl_sinhvien` int(11) NOT NULL,
+  `thoigian_batdau` varchar(255) NOT NULL,
+  `thoigian_ketthuc` varchar(255) NOT NULL,
+  `trang_thai` int(11) NOT NULL COMMENT '0: Đã kết thúc, 1: Đang mở'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_kehoachmonhom`
+--
+
+INSERT INTO `ctdt_kehoachmonhom` (`id`, `ma_nhom`, `id_hocphan`, `nam_hoc`, `hoc_ky`, `sl_sinhvien`, `thoigian_batdau`, `thoigian_ketthuc`, `trang_thai`) VALUES
+(1, 'DCT1222', 1, '2025-2026', 1, 120, '2025-04-28', '2025-12-31', 0),
+(2, 'DCT1225', 2, '2025-2026', 1, 100, '2025-04-28', '2025-12-31', 0),
+(3, 'DKP1221\r\n', 3, '2025-2026', 1, 80, '2025-04-28', '2025-12-31', 0),
+(4, 'DCT1221', 4, '2025-2026', 1, 50, '2025-04-28', '2025-12-31', 0),
+(5, 'DLI1221', 5, '2025-2026', 1, 25, '2025-04-28', '2025-12-31', 0),
+(6, 'DKP1222', 6, '2025-2026', 1, 60, '2025-04-28', '2025-12-31', 0),
+(7, 'DCT1226', 7, '2025-2026', 1, 62, '2025-04-28', '2025-12-31', 0),
+(8, 'DCT1212', 8, '2025-2026', 1, 55, '2025-04-28', '2025-12-31', 0),
+(9, 'DCT1223', 9, '2025-2026', 1, 110, '2025-04-28', '2025-12-31', 0),
+(10, 'DCT1224', 10, '2025-2026', 1, 89, '2025-04-28', '2025-12-31', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_khoikienthuc`
+--
+
+CREATE TABLE `ctdt_khoikienthuc` (
+  `id` int(11) NOT NULL,
+  `ma_khoi` varchar(255) NOT NULL,
+  `ten_khoi` varchar(255) NOT NULL,
+  `trang_thai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_khoikienthuc`
+--
+
+INSERT INTO `ctdt_khoikienthuc` (`id`, `ma_khoi`, `ten_khoi`, `trang_thai`) VALUES
+(1, 'DC', 'Khối kiến thức Đại cương', 1),
+(2, 'CSN', 'Khối kiến thức Cơ sở ngành', 1),
+(3, 'CN', 'Khối kiến thức Chuyên ngành', 1),
+(4, 'TN', 'Khối kiến thức Tốt nghiệp', 1),
+(5, 'TC', 'Khối kiến thức Tự chọn mở rộng', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_khungchuongtrinh`
+--
+
+CREATE TABLE `ctdt_khungchuongtrinh` (
+  `id` int(11) NOT NULL,
+  `id_thongtin` int(11) NOT NULL,
+  `ma_khoi` varchar(255) NOT NULL,
+  `ten_khoi` varchar(255) NOT NULL,
+  `so_tin_chi_toi_thieu` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_khungchuongtrinh`
+--
+
+INSERT INTO `ctdt_khungchuongtrinh` (`id`, `id_thongtin`, `ma_khoi`, `ten_khoi`, `so_tin_chi_toi_thieu`) VALUES
+(1, 1, 'DC', 'Khối kiến thức Đại cương', 45),
+(2, 1, 'CSN', 'Khối kiến thức Cơ sở ngành', 30),
+(3, 1, 'CN', 'Khối kiến thức Chuyên ngành', 35),
+(4, 1, 'TN', 'Khối kiến thức Tốt nghiệp', 40),
+(5, 1, 'TC', 'Khối kiến thức Tự chọn mở rộng', 20);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
+--
+
+CREATE TABLE `ctdt_khungchuongtrinh_khoikienthuc` (
+  `id` int(11) NOT NULL,
+  `id_khungct` int(11) NOT NULL,
+  `id_khoikienthuc` int(11) NOT NULL,
+  `so_tin_chi_bat_buoc` int(11) NOT NULL,
+  `so_tin_chi_tu_chon` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
+--
+
+INSERT INTO `ctdt_khungchuongtrinh_khoikienthuc` (`id`, `id_khungct`, `id_khoikienthuc`, `so_tin_chi_bat_buoc`, `so_tin_chi_tu_chon`) VALUES
+(1, 1, 1, 40, 5),
+(2, 1, 2, 25, 5),
+(3, 1, 3, 30, 5),
+(4, 1, 4, 35, 5),
+(5, 1, 5, 10, 10),
+(6, 2, 1, 40, 5),
+(7, 2, 2, 30, 4),
+(8, 2, 3, 30, 5),
+(9, 2, 4, 35, 5),
+(10, 2, 5, 10, 10),
+(11, 3, 1, 40, 5),
+(12, 3, 2, 30, 4),
+(13, 3, 3, 30, 5),
+(14, 3, 4, 35, 5),
+(15, 3, 5, 10, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_phanconggiangday`
+--
+
+CREATE TABLE `ctdt_phanconggiangday` (
+  `id` int(11) NOT NULL,
+  `id_giangvien` int(11) NOT NULL,
+  `id_nhom` int(11) NOT NULL,
+  `so_tiet_thuc_hien` int(11) NOT NULL,
+  `so_tiet_thuc_te` int(11) NOT NULL,
+  `trang_thai` int(11) NOT NULL COMMENT '0: Đã kết thúc, 1: Đang hoạt động\r\n'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_phanconggiangday`
+--
+
+INSERT INTO `ctdt_phanconggiangday` (`id`, `id_giangvien`, `id_nhom`, `so_tiet_thuc_hien`, `so_tiet_thuc_te`, `trang_thai`) VALUES
+(1, 1, 1, 30, 30, 1),
+(2, 2, 2, 20, 20, 1),
+(3, 3, 3, 20, 20, 1),
+(4, 4, 4, 20, 20, 1),
+(5, 5, 5, 30, 30, 1),
+(6, 6, 6, 30, 30, 1),
+(7, 7, 7, 45, 45, 1),
+(8, 8, 8, 50, 50, 1),
+(9, 9, 9, 50, 50, 1),
+(10, 10, 10, 50, 50, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_thongtinchung`
+--
+
+CREATE TABLE `ctdt_thongtinchung` (
+  `id` int(11) NOT NULL,
+  `ma_ctdt` varchar(255) NOT NULL,
+  `ten_ctdt` varchar(255) NOT NULL,
+  `bac_dao_tao` varchar(255) NOT NULL,
+  `loai_bang` varchar(255) NOT NULL,
+  `loai_hinh_dao_tao` varchar(255) NOT NULL,
+  `thoi_gian_dao_tao` float NOT NULL,
+  `tin_chi_toi_thieu` int(11) NOT NULL,
+  `khoa_quan_ly` varchar(255) NOT NULL,
+  `ngon_ngu` varchar(255) NOT NULL,
+  `website` varchar(255) DEFAULT NULL,
+  `ban_hanh` varchar(255) DEFAULT NULL,
+  `trang_thai` int(11) NOT NULL COMMENT '0: Ngưng áp dụng, 1: Đang áp dụng'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_thongtinchung`
+--
+
+INSERT INTO `ctdt_thongtinchung` (`id`, `ma_ctdt`, `ten_ctdt`, `bac_dao_tao`, `loai_bang`, `loai_hinh_dao_tao`, `thoi_gian_dao_tao`, `tin_chi_toi_thieu`, `khoa_quan_ly`, `ngon_ngu`, `website`, `ban_hanh`, `trang_thai`) VALUES
+(1, 'CNTT', 'Chương trình đào tạo ngành Công nghệ thông tin', 'Đại học, Bậc 7/8 đối với đào tạo kỹ sư', 'Kỹ sư', 'Chính quy', 4.5, 155, 'Công nghệ thông tin', 'Tiếng Việt', 'http://fit.sgu.edu.vn/', 'Theo Quyết định số ........./QĐ-ĐHSG ngày .... tháng .... năm 2020 của Hiệu trưởng Trường Đại học Sài Gòn\n', 1),
+(2, 'KT', 'Chương trình đào tạo ngành Kế toán', 'Đại học', 'Cử nhân', 'Chính quy', 4, 135, 'Khoa Kế toán', 'Tiếng Việt', 'http://accounting.sgu.edu.vn/', 'Theo Quyết định số ........./QĐ-ĐHSG ngày .... tháng .... năm 2020 của Hiệu trưởng Trường Đại học Sài Gòn', 1),
+(3, 'QTKD', 'Chương trình đào tạo ngành Quản trị Kinh doanh', 'Đại học', 'Cử nhân', 'Chính quy', 4, 140, 'Khoa Quản trị Kinh doanh', 'Tiếng Việt', 'http://business.sgu.edu.vn/', 'Theo Quyết định số ........./QĐ-ĐHSG ngày .... tháng .... năm 2020 của Hiệu trưởng Trường Đại học Sài Gòn', 1),
+(4, 'SP', 'Chương trình đào tạo ngành Sư phạm Toán học', 'Đại học', 'Cử nhân Sư phạm', 'Chính quy', 4.5, 150, 'Khoa Sư phạm', 'Tiếng Việt', 'http://education.sgu.edu.vn/', 'Theo Quyết định số ........./QĐ-ĐHSG ngày .... tháng .... năm 2020 của Hiệu trưởng Trường Đại học Sài Gòn', 1),
+(5, 'NN', 'Chương trình đào tạo ngành Ngôn ngữ Anh', 'Đại học', 'Cử nhân', 'Chính quy', 4, 130, 'Khoa Ngôn ngữ Anh', 'Tiếng Anh', 'http://english.sgu.edu.vn/', 'Theo Quyết định số ........./QĐ-ĐHSG ngày .... tháng .... năm 2020 của Hiệu trưởng Trường Đại học Sài Gòn', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ctdt_user`
+--
+
+CREATE TABLE `ctdt_user` (
+  `id` int(11) NOT NULL,
+  `ten_dang_nhap` varchar(255) NOT NULL,
+  `mat_khau` varchar(255) NOT NULL,
+  `ho_ten` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `vai_tro` int(11) NOT NULL COMMENT '0: Admin, 1: Giảng viên\r\n',
+  `trang_thai` int(11) NOT NULL COMMENT '0: Tạm khóa, 1: Đang hoạt động'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ctdt_user`
+--
+
+INSERT INTO `ctdt_user` (`id`, `ten_dang_nhap`, `mat_khau`, `ho_ten`, `email`, `vai_tro`, `trang_thai`) VALUES
+(1, 'admin', 'admin', 'Admin', 'admin@gmail.com', 0, 1),
+(2, 'giangvien001', '123456', 'Lê Minh D', 'leminhd@gmail.com', 1, 1),
+(3, 'giangvien002', '123456', 'Hoàng Ngọc E', 'hoangngoc@gmail.com', 1, 1),
+(4, 'giangvien003', '123456', 'Nguyễn Văn F', 'nguyenvanf@gmail.com', 1, 1),
+(5, 'giangvien004', '123456', 'Dương Văn J', 'duongvanj@gmail.com', 1, 1),
+(6, 'giangvien005', '123456', 'Nguyễn Văn A', 'nguyenvana@gmail.com', 1, 1),
+(7, 'giangvien006', '123456', 'Phạm Thị L', 'phamthil@gmail.com', 1, 1),
+(8, 'giangvien007', '123456', 'Ngô Văn H', 'ngovanh@gmail.com', 1, 1),
+(9, 'giangvien008', '123456', 'Lê Thị Thúy H', 'lethithuyh@gmail.com', 1, 1),
+(10, 'giangvien009', '123456', 'Trần Đức M', 'tranducm@gmail.com', 1, 1),
+(11, 'giangvien010', '123456', 'Hoàng Gia N', 'hoangian@gmail.com', 1, 1);
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `ctdt_cotdiem`
+--
+ALTER TABLE `ctdt_cotdiem`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_decuongct` (`id_decuongct`);
+
+--
+-- Chỉ mục cho bảng `ctdt_decuongchitiet`
+--
+ALTER TABLE `ctdt_decuongchitiet`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_hocphan_dcct` (`id_hocphan`);
+
+--
+-- Chỉ mục cho bảng `ctdt_giangvien`
+--
+ALTER TABLE `ctdt_giangvien`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ma_gv_unique` (`ma_giang_vien`),
+  ADD UNIQUE KEY `id_taikhoan` (`id_taikhoan`);
+
+--
+-- Chỉ mục cho bảng `ctdt_hocphan`
+--
+ALTER TABLE `ctdt_hocphan`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ma_hoc_phan_unique` (`ma_hoc_phan`),
+  ADD KEY `fk_khungct_hocphan` (`id_khungct`);
+
+--
+-- Chỉ mục cho bảng `ctdt_kehoachdayhoc`
+--
+ALTER TABLE `ctdt_kehoachdayhoc`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_hocphan_khdh` (`id_hocphan`),
+  ADD KEY `fk_thongtin_khdh` (`id_thongtin`);
+
+--
+-- Chỉ mục cho bảng `ctdt_kehoachmonhom`
+--
+ALTER TABLE `ctdt_kehoachmonhom`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ma_nhom_unique` (`ma_nhom`),
+  ADD KEY `fk_hocphan_khmn` (`id_hocphan`);
+
+--
+-- Chỉ mục cho bảng `ctdt_khoikienthuc`
+--
+ALTER TABLE `ctdt_khoikienthuc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `ctdt_khungchuongtrinh`
+--
+ALTER TABLE `ctdt_khungchuongtrinh`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_thongtin_khungct` (`id_thongtin`);
+
+--
+-- Chỉ mục cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
+--
+ALTER TABLE `ctdt_khungchuongtrinh_khoikienthuc`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_khungct` (`id_khungct`),
+  ADD KEY `fk_khoikienthuc` (`id_khoikienthuc`);
+
+--
+-- Chỉ mục cho bảng `ctdt_phanconggiangday`
+--
+ALTER TABLE `ctdt_phanconggiangday`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_giangvien_pcgd` (`id_giangvien`),
+  ADD KEY `fk_nhom_pcgd` (`id_nhom`);
+
+--
+-- Chỉ mục cho bảng `ctdt_thongtinchung`
+--
+ALTER TABLE `ctdt_thongtinchung`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ma_ctdt_unique` (`ma_ctdt`);
+
+--
+-- Chỉ mục cho bảng `ctdt_user`
+--
+ALTER TABLE `ctdt_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_cotdiem`
+--
+ALTER TABLE `ctdt_cotdiem`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_decuongchitiet`
+--
+ALTER TABLE `ctdt_decuongchitiet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_giangvien`
+--
+ALTER TABLE `ctdt_giangvien`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_hocphan`
+--
+ALTER TABLE `ctdt_hocphan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_kehoachdayhoc`
+--
+ALTER TABLE `ctdt_kehoachdayhoc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_kehoachmonhom`
+--
+ALTER TABLE `ctdt_kehoachmonhom`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_khoikienthuc`
+--
+ALTER TABLE `ctdt_khoikienthuc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_khungchuongtrinh`
+--
+ALTER TABLE `ctdt_khungchuongtrinh`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
+--
+ALTER TABLE `ctdt_khungchuongtrinh_khoikienthuc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_phanconggiangday`
+--
+ALTER TABLE `ctdt_phanconggiangday`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_thongtinchung`
+--
+ALTER TABLE `ctdt_thongtinchung`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `ctdt_user`
+--
+ALTER TABLE `ctdt_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `ctdt_cotdiem`
+--
+ALTER TABLE `ctdt_cotdiem`
+  ADD CONSTRAINT `fk_decuongct` FOREIGN KEY (`id_decuongct`) REFERENCES `ctdt_decuongchitiet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_decuongchitiet`
+--
+ALTER TABLE `ctdt_decuongchitiet`
+  ADD CONSTRAINT `fk_hocphan_dcct` FOREIGN KEY (`id_hocphan`) REFERENCES `ctdt_hocphan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_giangvien`
+--
+ALTER TABLE `ctdt_giangvien`
+  ADD CONSTRAINT `fk_taikhoan_giangvien` FOREIGN KEY (`id_taikhoan`) REFERENCES `ctdt_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_hocphan`
+--
+ALTER TABLE `ctdt_hocphan`
+  ADD CONSTRAINT `fk_khungct_hocphan` FOREIGN KEY (`id_khungct`) REFERENCES `ctdt_khungchuongtrinh` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_kehoachdayhoc`
+--
+ALTER TABLE `ctdt_kehoachdayhoc`
+  ADD CONSTRAINT `fk_hocphan_khdh` FOREIGN KEY (`id_hocphan`) REFERENCES `ctdt_hocphan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_thongtin_khdh` FOREIGN KEY (`id_thongtin`) REFERENCES `ctdt_thongtinchung` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_kehoachmonhom`
+--
+ALTER TABLE `ctdt_kehoachmonhom`
+  ADD CONSTRAINT `fk_hocphan_khmn` FOREIGN KEY (`id_hocphan`) REFERENCES `ctdt_hocphan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_khungchuongtrinh`
+--
+ALTER TABLE `ctdt_khungchuongtrinh`
+  ADD CONSTRAINT `fk_thongtin_khungct` FOREIGN KEY (`id_thongtin`) REFERENCES `ctdt_thongtinchung` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
+--
+ALTER TABLE `ctdt_khungchuongtrinh_khoikienthuc`
+  ADD CONSTRAINT `fk_khoikienthuc` FOREIGN KEY (`id_khoikienthuc`) REFERENCES `ctdt_khoikienthuc` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_khungct` FOREIGN KEY (`id_khungct`) REFERENCES `ctdt_khungchuongtrinh` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `ctdt_phanconggiangday`
+--
+ALTER TABLE `ctdt_phanconggiangday`
+  ADD CONSTRAINT `fk_giangvien_pcgd` FOREIGN KEY (`id_giangvien`) REFERENCES `ctdt_giangvien` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_nhom_pcgd` FOREIGN KEY (`id_nhom`) REFERENCES `ctdt_kehoachmonhom` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
