@@ -42,11 +42,24 @@ public class giang_vien_Controller {
     
     //Hiển thị danh sách giảng viên
     @GetMapping("/giangvien")
-    public String getAllGiangVien(Model model){
+    public String getAllGiangVien(Model model) {
         List<giang_vien> giangvien = gvService.getAllGiangVien();
-        //hiển thị lên giao diện
+
+        // Thống kê số lượng
+        long tongGiangVien = giangvien.size();
+        long soCoHuu = giangvien.stream().filter(gv -> gv.getLoaiGiangVien() == 1).count();
+        long soThinhGiang = giangvien.stream().filter(gv -> gv.getLoaiGiangVien() != 1).count();
+        long soDangLam = giangvien.stream().filter(gv -> gv.getTrangThai() == 1).count();
+        long soNgungLam = giangvien.stream().filter(gv -> gv.getTrangThai() != 1).count();
+
+        // Truyền các giá trị thống kê vào model để hiển thị lên giao diện
         model.addAttribute("giangvien", giangvien);
-        //trả về tên view
+        model.addAttribute("tongGiangVien", tongGiangVien);
+        model.addAttribute("soCoHuu", soCoHuu);
+        model.addAttribute("soThinhGiang", soThinhGiang);
+        model.addAttribute("soDangLam", soDangLam);
+        model.addAttribute("soNgungLam", soNgungLam);
+
         return "ctdt_giangvien";
     }
     
