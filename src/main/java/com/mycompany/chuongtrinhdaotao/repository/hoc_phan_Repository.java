@@ -22,7 +22,7 @@ public interface hoc_phan_Repository extends JpaRepository<hoc_phan, Integer>{
     
     @Query("""
         SELECT hp FROM hoc_phan hp 
-        WHERE hp.idKhungCT IN (
+        WHERE hp.khungChuongTrinh.id IN (
             SELECT kct.id FROM khung_chuong_trinh kct 
             WHERE kct.ctdt.id = :ctdtId
         )
@@ -33,8 +33,8 @@ public interface hoc_phan_Repository extends JpaRepository<hoc_phan, Integer>{
     List<hoc_phan> findByTrangThai(int trangThai);
     
     @Query("SELECT hp FROM hoc_phan hp " +
-       "JOIN khung_chuong_trinh kct ON hp.idKhungCT = kct.id " +
-       "JOIN khung_chuong_trinh_kkt kkt ON kkt.idKhungCT = kct.id " +
-       "WHERE kkt.idKhoiKT = :idKhoiKT")
+       "JOIN khung_chuong_trinh kct ON hp.khungChuongTrinh.id = kct.id " +
+       "JOIN khung_chuong_trinh_kkt kkt ON kkt.idKhungCT.id = kct.id " +
+       "WHERE kkt.idKhoiKT.id = :idKhoiKT")
     List<hoc_phan> getHocPhanByIdKhoiKienThuc(@Param("idKhoiKT") int idKhoiKT);
 }
