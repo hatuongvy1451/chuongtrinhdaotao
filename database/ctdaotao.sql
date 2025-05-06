@@ -291,22 +291,14 @@ CREATE TABLE `ctdt_khungchuongtrinh_khoikienthuc` (
 -- Đang đổ dữ liệu cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
 --
 
+DELETE FROM `ctdt_khungchuongtrinh_khoikienthuc`;
+
 INSERT INTO `ctdt_khungchuongtrinh_khoikienthuc` (`id`, `id_khungct`, `id_khoikienthuc`, `so_tin_chi_bat_buoc`, `so_tin_chi_tu_chon`) VALUES
 (1, 1, 1, 40, 5),
-(2, 1, 2, 25, 5),
-(3, 1, 3, 30, 5),
-(4, 1, 4, 35, 5),
-(5, 1, 5, 10, 10),
-(6, 2, 1, 40, 5),
-(7, 2, 2, 30, 4),
-(8, 2, 3, 30, 5),
-(9, 2, 4, 35, 5),
-(10, 2, 5, 10, 10),
-(11, 3, 1, 40, 5),
-(12, 3, 2, 30, 4),
-(13, 3, 3, 30, 5),
-(14, 3, 4, 35, 5),
-(15, 3, 5, 10, 10);
+(2, 2, 2, 25, 5),
+(3, 3, 3, 30, 5),
+(4, 4, 4, 35, 5),
+(5, 5, 5, 10, 10);
 
 -- --------------------------------------------------------
 
