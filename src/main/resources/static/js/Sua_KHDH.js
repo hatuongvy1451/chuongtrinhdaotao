@@ -41,6 +41,11 @@ function capNhatKeHoachDayHoc(event){
     const namHoc = document.getElementById("suaNamHoc").value;
     const trangThai = document.getElementById("suaTrangThaiKHDH").value;
     
+    if(hocKyThucHien < 1){
+        alert("Học kỳ thực hiện phải lớn hơn hoặc bằng 1!");
+        return;
+    }
+    
     const keHoachDayHocData = {
         id: id,
         ctdt: {id: ctdt},
