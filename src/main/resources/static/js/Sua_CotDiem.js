@@ -36,6 +36,11 @@ function capNhatCotDiem(event){
     const tyLePhanTram = document.getElementById("editTyLe").value;
     const hinhThuc = document.getElementById("editHinhThuc").value;
     
+    if (tyLePhanTram < 1 || tyLePhanTram > 100) {
+        alert("Tỷ lệ phần trăm phải nằm trong khoảng từ 1 đến 100!");
+        return;
+    }
+    
     const cotDiemData = {
         id: id,
         idDeCuongCT: idDeCuongCT,
