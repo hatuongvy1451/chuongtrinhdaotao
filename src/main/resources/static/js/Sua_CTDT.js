@@ -54,6 +54,16 @@ function capNhatThongTinChung(event){
     const trangThai = document.getElementById("editTrangThaiTT").value;
     const banHanh = document.getElementById("editBanHanh").value;
     
+    if (thoiGianDaoTao < 1) {
+        alert("Thời gian đào tạo phải lớn hơn hoặc bằng 1!");
+        return;
+    }
+
+    if (tinChiToiThieu < 1) {
+        alert("Số tín chỉ phải lớn hơn hoặc bằng 1!");
+        return;
+    }
+    
     const ctdtData = {
         id: id,
         maCTDT: maCTDT,
