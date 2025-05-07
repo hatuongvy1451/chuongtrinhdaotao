@@ -52,6 +52,31 @@ function capNhatHocPhan(event){
     const maHPTruoc = document.getElementById("suaMaHPTruoc").value;
     const trangThai = document.getElementById("suaTrangThaiHocPhan").value;
     
+    if (soTinChi < 1) {
+        alert("Số tín chỉ phải lớn hơn hoặc bằng 1!");
+        return;
+    }
+    
+    if (soTietLyThuyet < 0) {
+        alert("Số tiết lý thuyết phải lớn hơn hoặc bằng 0!");
+        return;
+    }
+    
+    if (soTietThucHanh < 0) {
+        alert("Số tiết thực hành phải lớn hơn hoặc bằng 0!");
+        return;
+    }
+    
+    if (soTietThucTap < 0) {
+        alert("Số tiết thực tập phải lớn hơn hoặc bằng 0!");
+        return;
+    }
+    
+    if (heSoHocPhan < 1) {
+        alert("Hệ số học phần phải lớn hơn hoặc bằng 1!");
+        return;
+    }
+    
     const hocPhanData = {
         id: id,
         khungChuongTrinh: {id: idKhungCT},
