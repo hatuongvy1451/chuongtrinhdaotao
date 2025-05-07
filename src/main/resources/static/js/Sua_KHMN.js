@@ -47,6 +47,11 @@ function capNhatKeHoachMoNhom(event) {
     const thoiGianBatDau = document.getElementById("suaTGBD").value;
     const thoiGianKetThuc = document.getElementById("suaTGKT").value;
     const trangThai = document.getElementById("suaTrangThaiMoNhom").value;
+    
+    if(slSinhVien < 1){
+        alert("Số lượng sinh viên phải lớn hơn hoặc bằng 1!");
+        return;
+    }
 
     const keHoachMoNhomData = {
         id: id,
