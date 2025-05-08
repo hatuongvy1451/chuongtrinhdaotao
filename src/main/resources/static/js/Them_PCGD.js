@@ -43,10 +43,10 @@ function loadGiangVienActive() {
         .catch(error => console.error('Lỗi khi load giảng viên:', error));
 }
 
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
     loadNhomActive();
     loadGiangVienActive();
-};
+});
 
 function themPhanCongGiangDay(event){
     event.preventDefault();
