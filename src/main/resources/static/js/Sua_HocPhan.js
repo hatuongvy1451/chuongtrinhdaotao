@@ -119,3 +119,17 @@ function capNhatHocPhan(event){
         alert("Lỗi khi cập nhật học phần!");
     });
 }
+
+function capNhatSoTietCong() {
+    const lt = parseInt(document.getElementById('suaLT').value) || 0;
+    const th = parseInt(document.getElementById('suaTH').value) || 0;
+    const tt = parseInt(document.getElementById('suaTT').value) || 0;
+
+    const tong = lt + th + tt;
+    document.getElementById('suaTongTiet').value = tong;
+}
+
+// Gắn sự kiện input
+document.getElementById('suaLT').addEventListener('input', capNhatSoTietCong);
+document.getElementById('suaTH').addEventListener('input', capNhatSoTietCong);
+document.getElementById('suaTT').addEventListener('input', capNhatSoTietCong);
