@@ -3,6 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 
+function loadGiangVien() {
+    fetch('/giangvien/trangthai')
+        .then(response => response.json())
+        .then(data => {
+            const selectGiangVien = document.getElementById('suaGiangVien');
+            selectGiangVien.innerHTML = '<option value="" disabled selected>--- Chọn giảng viên ---</option>';
+            data.forEach(item => {
+                let option = document.createElement('option');
+                option.value = item.id; 
+                option.text = `${item.maGiangVien} - ${item.tenGiangVien}`;
+                selectGiangVien.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Lỗi khi load giảng viên:', error));
+}
+
+window.onload = loadGiangVien;
+
 // Lấy dữ liệu phân công giảng dạy để sửa
 function suaPhanCongGiangDay(id) {
     fetch(`/phanconggiangday/${id}`)
@@ -16,7 +34,7 @@ function suaPhanCongGiangDay(id) {
             console.log(data);
             // Gán dữ liệu vào form sửa
             document.getElementById("suaIDPhanCong").value = data.id;
-            document.getElementById("suaGiangVien").value = `${data.giangVien.id} - ${data.giangVien.tenGiangVien}`;
+            document.getElementById("suaGiangVien").value = data.giangVien.id;
             document.getElementById("suaNhom").value = `${data.moNhom.id} - ${data.moNhom.maNhom}`;
             document.getElementById("suaSoTietThucHien").value = data.soTietThucHien;
             document.getElementById("suaSoTietThucTe").value = data.soTietThucTe;
