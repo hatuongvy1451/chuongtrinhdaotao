@@ -54,6 +54,7 @@ public class phan_cong_giang_day_Service {
         if (optional.isPresent()) {
             phan_cong_giang_day current = optional.get();
             // Cập nhật các thuộc tính
+            current.setGiangVien(updated.getGiangVien());
             current.setSoTietThucHien(updated.getSoTietThucHien());
             current.setSoTietThucTe(updated.getSoTietThucTe());
             current.setTrangThai(updated.getTrangThai());
