@@ -54,32 +54,4 @@ public class de_cuong_chi_tiet_Controller {
         }
         return ResponseEntity.notFound().build();  
     }
-    
-    @DeleteMapping("/decuongchitiet/xoa/{id}")
-    public ResponseEntity<Map<String, String>> deleteDeCuongChiTietById(@PathVariable int id){
-        boolean isDeleted = deCuongChiTietService.deleteDeCuongChiTietById(id);
-        
-        if(!isDeleted){
-            return new ResponseEntity<>(Map.of("message", "Đề cương chi tiết không tồn tại!"), HttpStatus.NOT_FOUND);
-        }
-        
-        return new ResponseEntity<>(Map.of("message", "Xóa đề cương chi tiết thành công!"), HttpStatus.OK);
-    }
-    
-    @PutMapping("/decuongchitiet/sua/{id}")
-    public ResponseEntity<de_cuong_chi_tiet> updateDeCuongChiTietById(@PathVariable int id, @RequestBody de_cuong_chi_tiet updated) {
-        de_cuong_chi_tiet dcct = deCuongChiTietService.updateDeCuongChiTietById(id, updated);
-        if (dcct != null) {
-            return ResponseEntity.ok(dcct);
-        }
-        return ResponseEntity.notFound().build();
-    }
-    
-    @PostMapping("/decuongchitiet/them")
-    public ResponseEntity<de_cuong_chi_tiet> addDeCuongChiTiet(@RequestBody de_cuong_chi_tiet deCuongChiTiet){
-        de_cuong_chi_tiet saved = deCuongChiTietService.addDeCuongChiTiet(deCuongChiTiet);
-        return ResponseEntity.ok(saved);
-    }
-    
-    
 }
