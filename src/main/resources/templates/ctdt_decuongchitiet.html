@@ -165,23 +165,13 @@
                     <h2 class="mb-4">Quản lý Đề cương chi tiết</h2>
 
                     <!-- Các nút thao tác -->
-                    <div class="mb-3">
-                        <button class="btn btn-success" id="btnThem" data-toggle="modal" data-target="#modalThemDeCuong"
-                                th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
-                            <i class="fas fa-plus-circle"></i> Thêm
-                        </button>
-                        
+                    <div class="mb-3">                        
                         <a href="/cotdiem">
                             <button class="btn btn-primary" id="btnQuanLyColDiem">
                                 <i class="fas fa-cogs"></i> Quản lý cột điểm
                             </button>
                         </a>
                     </div>
-                    
-                    <!-- Thanh tìm kiếm -->
-<!--                    <div class="mb-3">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm theo mã hoặc tên...">
-                    </div>-->
 
                     <!-- Danh sách đề cương chi tiết -->
                     <table class="table table-bordered table-hover bg-white shadow-sm" id="tableDeCuongChiTiet">
@@ -209,174 +199,11 @@
                                         th:onclick="'xemDeCuongChiTiet(' + ${decuong.id} + ')'">
                                     <i class="fas fa-eye"></i> Xem
                                 </button>
-                                <button class="btn btn-warning btn-sm" id="btnSua" data-toggle="modal" data-target="#modalSuaDeCuong"
-                                        th:if="${session.nguoiDungDangNhap.vaiTro == 0}"
-                                        th:onclick="'suaDeCuongChiTiet(' + ${decuong.id} + ')'">
-                                    <i class="fas fa-edit"></i> Sửa
-                                </button>
-                                <button class="btn btn-danger btn-sm" id="btnXoa" th:onclick="'xoaDeCuongChiTiet(' + ${decuong.id} + ')'"
-                                        th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
-                                    <i class="fas fa-trash"></i> Xóa
-                                </button>
                             </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                
-                <!-- Modal Thêm Đề cương chi tiết -->
-                <div class="modal fade" id="modalThemDeCuong" tabindex="-1" role="dialog" aria-labelledby="modalThemDeCuongLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <form id="formThemDeCuong" class="modal-content">
-                      <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="modalThemDeCuongLabel">Thêm Đề cương chi tiết</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-row">
-                          <div class="form-group col-md-12">
-                            <label for="themMaHocPhan">Học phần <span class="text-danger">*</span></label>
-                            <select class="form-control" id="themMaHocPhan" name="maHocPhan" required>
-                              <option value="" disabled selected>--- Chọn học phần ---</option>
-                              <th:block th:each="hocPhan : ${hocPhanList}">
-                                  <option th:value="${hocPhan.id}" th:text="${hocPhan.id + '-' + hocPhan.tenHocPhan}"></option>
-                              </th:block>
-                              <!-- Thêm các lựa chọn học phần khác nếu có -->
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="themMoTa">Mô tả <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="themMoTa" name="moTa" rows="2" required></textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="themMucTieu">Mục tiêu <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="themMucTieu" name="mucTieu" rows="2" required></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="themChuongNoiDung">Chương - Nội dung <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="themChuongNoiDung" name="chuongNoiDung" rows="2" required></textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="themPhuongPhapGiangDay">Phương pháp giảng dạy <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="themPhuongPhapGiangDay" name="phuongPhapGiangDay" rows="2" required></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="themPhuongPhapDanhGia">Phương pháp đánh giá <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="themPhuongPhapDanhGia" name="phuongPhapDanhGia" rows="2" required></textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="themTaiLieu">Tài liệu tham khảo</label>
-                            <textarea class="form-control" id="themTaiLieu" name="taiLieu" rows="2"></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-12">
-                            <label for="themTrangThai">Trạng thái</label>
-                            <select class="form-control" id="themTrangThai" name="trangThai">
-                              <option value="1">Đã duyệt</option>
-                              <option value="0">Chờ duyệt</option>
-                            </select>
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Lưu</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          <i class="fas fa-times-circle"></i> Hủy
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                
-                <!-- Modal Sửa Đề cương chi tiết -->
-                <div class="modal fade" id="modalSuaDeCuong" tabindex="-1" role="dialog" aria-labelledby="modalSuaDeCuongLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <form id="formSuaDeCuong" class="modal-content">
-                      <div class="modal-header bg-warning text-white">
-                        <h5 class="modal-title" id="modalSuaDeCuongLabel">Sửa Đề cương chi tiết</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <input type="hidden" id="suaIdDeCuong" name="idDeCuong">
-
-                        <div class="form-row">
-                          <div class="form-group col-md-12">
-                            <label for="suaMaHocPhan">Học phần</label>
-                            <input type="text" class="form-control" id="suaMaHocPhan" name="maHocPhan" readonly>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="suaMoTa">Mô tả</label>
-                            <textarea class="form-control" id="suaMoTa" name="moTa" rows="2"></textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="suaMucTieu">Mục tiêu</label>
-                            <textarea class="form-control" id="suaMucTieu" name="mucTieu" rows="2"></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="suaChuongNoiDung">Chương - Nội dung</label>
-                            <textarea class="form-control" id="suaChuongNoiDung" name="chuongNoiDung" rows="2"></textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="suaPhuongPhapGiangDay">Phương pháp giảng dạy</label>
-                            <textarea class="form-control" id="suaPhuongPhapGiangDay" name="phuongPhapGiangDay" rows="2"></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <label for="suaPhuongPhapDanhGia">Phương pháp đánh giá</label>
-                            <textarea class="form-control" id="suaPhuongPhapDanhGia" name="phuongPhapDanhGia" rows="2"></textarea>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="suaTaiLieu">Tài liệu tham khảo</label>
-                            <textarea class="form-control" id="suaTaiLieu" name="taiLieu" rows="2"></textarea>
-                          </div>
-                        </div>
-
-                        <div class="form-row">
-                          <div class="form-group col-md-12">
-                            <label for="suaTrangThai">Trạng thái</label>
-                            <select class="form-control" id="suaTrangThaiDCCT" name="trangThai">
-                              <option value="1">Đã xét duyệt</option>
-                              <option value="0">Chờ xét duyệt</option>
-                            </select>
-                          </div>
-                        </div>
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-warning" onclick="capNhatDeCuongChiTiet(event)">
-                            <i class="fas fa-save"></i> Cập nhật
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                          <i class="fas fa-times-circle"></i> Hủy
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
                 
                 <!-- Modal Xem Chi tiết Đề cương -->
                 <div class="modal fade" id="modalXemChiTiet" tabindex="-1" role="dialog" aria-labelledby="modalXemChiTietLabel" aria-hidden="true">
@@ -492,12 +319,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script src="js/Xem_DCCT.js"></script>
-    
-    <script src="js/Them_DCCT.js"></script>
-    
-    <script src="js/Sua_DCCT.js"></script>
-    
-    <script src="js/Xoa_DCCT.js"></script>
     
     <script src="js/Sua_ThongTin.js"></script>
 
