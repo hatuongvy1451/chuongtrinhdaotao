@@ -19,11 +19,24 @@ function loadHocPhan() {
         .catch(error => console.error('Lỗi khi load học phần:', error));
 }
 
-window.onload = loadHocPhan;
+window.onload = function() {
+    loadHocPhan();
+
+    document.getElementById('namHocKHMN').disabled = true;
+    document.getElementById('hocKyKHMN').disabled = true;
+};
 
 document.getElementById('hocPhanMoNhom').addEventListener('change', function () {
     const hocPhanId = this.value;
-    if (!hocPhanId) return;
+    
+    if (!hocPhanId) {
+        alert("Vui lòng chọn học phần trước!");
+        return;
+    }
+
+    // Bật dropdown sau khi chọn học phần
+    document.getElementById('namHocKHMN').disabled = false;
+    document.getElementById('hocKyKHMN').disabled = false;
 
     fetch(`/kehoachdayhoc/nam-hoc-hoc-ky?hocPhanId=${hocPhanId}`)
         .then(response => response.json())
