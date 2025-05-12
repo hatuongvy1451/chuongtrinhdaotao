@@ -191,7 +191,7 @@
                             <!-- Dữ liệu mẫu -->
                             <tr th:each="pcgd : ${phanCongGiangDay}">
                                 <td th:text="${pcgd.id}"></td>
-                                <td th:text="|${pcgd.giangVien.id} - ${pcgd.giangVien.tenGiangVien}|"></td>
+                                <td th:text="|${pcgd.giangVien.maGiangVien} - ${pcgd.giangVien.tenGiangVien}|"></td>
                                 <td th:text="|${pcgd.moNhom.id} - ${pcgd.moNhom.maNhom}|"></td>
                                 <td th:text="${pcgd.soTietThucHien}"></td>
                                 <td th:text="${pcgd.soTietThucTe}"></td>
@@ -261,11 +261,16 @@
                               <option value="" disabled selected>--- Chọn nhóm ---</option>
                             </select>
                           </div>
+                            
+                           <div class="form-group">
+                            <label for="hocPhanMoNhom">Học phần</label>
+                            <input type="text" class="form-control" id="hocPhanMoNhom" name="hocPhanMoNhom" readonly>
+                          </div>
 
                           <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="soTietThucHien">Số tiết thực hiện <span class="text-danger">*</span></label>
-                              <input type="number" class="form-control" id="soTietThucHien" name="soTietThucHien" min="1" required>
+                              <label for="soTietThucHien">Số tiết thực hiện</label>
+                              <input type="number" class="form-control" id="soTietThucHien" name="soTietThucHien" min="1" readonly>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="soTietThucTe">Số tiết thực tế <span class="text-danger">*</span></label>
@@ -316,11 +321,16 @@
                             <label for="suaNhom">Nhóm</label>
                              <input type="text" class="form-control" id="suaNhom" name="suaNhom" readonly>
                           </div>
+                          
+                          <div class="form-group">
+                            <label for="suaHocPhanMoNhom">Học phần</label>
+                            <input type="text" class="form-control" id="suaHocPhanMoNhom" name="suaHocPhanMoNhom" readonly>
+                          </div>
 
                           <div class="form-row">
                             <div class="form-group col-md-6">
                               <label for="suaSoTietThucHien">Số tiết thực hiện</label>
-                              <input type="number" class="form-control" id="suaSoTietThucHien" name="suaSoTietThucHien" min="1">
+                              <input type="number" class="form-control" id="suaSoTietThucHien" name="suaSoTietThucHien" min="1" readonly>
                             </div>
                             <div class="form-group col-md-6">
                               <label for="suaSoTietThucTe">Số tiết thực tế</label>
