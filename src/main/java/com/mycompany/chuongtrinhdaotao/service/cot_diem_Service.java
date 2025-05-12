@@ -57,4 +57,16 @@ public class cot_diem_Service {
     public cot_diem addCotDiem(cot_diem cotDiem){
         return cotDiemRepository.save(cotDiem);
     }
+    
+    public double tongTyLeIDDCCT(int dcctId) {
+        return cotDiemRepository.tongTyLeByDcctId(dcctId);
+    }
+    
+    public boolean checkTenCotDiem(int dcctId, String tenCotDiem) {
+        return cotDiemRepository.existsByDcct_IdAndTenCotDiem(dcctId, tenCotDiem);
+    }
+    
+    public List<cot_diem> findByDeCuongChiTietId(int dcctId) {
+        return cotDiemRepository.findByDcct_Id(dcctId);
+    }
 }
