@@ -10,12 +10,19 @@ package com.mycompany.chuongtrinhdaotao.repository;
  */
 
 import com.mycompany.chuongtrinhdaotao.model.cot_diem;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface cot_diem_Repository extends JpaRepository<cot_diem, Integer> {
-    // Phương thức này được tự động tạo sẵn bởi JpaRepository
-    // Không cần phải khai báo gì thêm
+    @Query("SELECT COALESCE(SUM(c.tyLePhanTram), 0) FROM cot_diem c WHERE c.dcct.id = :dcctId")
+    double tongTyLeByDcctId(@Param("dcctId") int dcctId);
+    
+    boolean existsByDcct_IdAndTenCotDiem(int dcctId, String tenCotDiem);
+    
+    List<cot_diem> findByDcct_Id(int dcctId);
 }
 
