@@ -21,6 +21,30 @@ function loadNhomActive() {
                             selectNhom.appendChild(option);
                         }
                     });
+
+                    // Lắng nghe sự kiện thay đổi chọn nhóm
+                    selectNhom.addEventListener('change', function() {
+                        const nhomId = selectNhom.value;
+                        if (nhomId) {
+                            // Gửi yêu cầu để lấy học phần tương ứng với nhóm đã chọn
+                            fetch(`/kehoachmonhom/hocphan/${nhomId}`)
+                                .then(response => response.json())
+                                .then(hocPhan => {
+                                    if (hocPhan) {
+                                        const hocPhanInput = document.getElementById('hocPhanMoNhom');
+                                        const soTietInput = document.getElementById('soTietThucHien');
+                                        hocPhanInput.value = `${hocPhan.id} - ${hocPhan.tenHocPhan}`;
+                                        soTietInput.value = hocPhan.soTietCong;
+                                    } else {
+                                        alert('Không tìm thấy học phần cho nhóm này.');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Lỗi khi lấy học phần:', error);
+                                    alert('Không thể lấy học phần cho nhóm này.');
+                                });
+                        }
+                    });
                 })
                 .catch(error => console.error('Lỗi khi load nhóm học:', error));
         })
