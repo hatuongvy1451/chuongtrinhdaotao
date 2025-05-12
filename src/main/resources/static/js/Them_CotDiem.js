@@ -64,7 +64,12 @@ function addCotDiem(event) {
                         alert("Thêm mới cột điểm thành công!");
                         var myModal = new bootstrap.Modal(document.getElementById("modalAddCotDiem"));
                         myModal.hide();
-                        location.reload();  // Làm mới trang sau khi thêm thành công
+                        const filterDeCuongChiTiet = document.getElementById('filterDeCuongChiTiet');
+                        if (filterDeCuongChiTiet.value) {
+                            loadCotDiemTheoDeCuong();
+                        } else {
+                            location.reload();
+                        }
                     })
                     .catch(error => {
                         console.error("Lỗi thêm mới cột điểm:", error);
