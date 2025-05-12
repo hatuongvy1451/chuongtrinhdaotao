@@ -16,7 +16,12 @@ function xoaCotDiem(id){
         })
         .then(data => {
             alert(data.message);
-            location.reload();
+            const filterDeCuongChiTiet = document.getElementById('filterDeCuongChiTiet');
+            if (filterDeCuongChiTiet.value) {
+                loadCotDiemTheoDeCuong();
+            } else {
+                location.reload();
+            }
         })
         .catch(error => {
             console.error("Lỗi khi xóa cột điểm:", error);
