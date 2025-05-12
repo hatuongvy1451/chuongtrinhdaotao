@@ -36,6 +36,7 @@ function suaPhanCongGiangDay(id) {
             document.getElementById("suaIDPhanCong").value = data.id;
             document.getElementById("suaGiangVien").value = data.giangVien.id;
             document.getElementById("suaNhom").value = `${data.moNhom.id} - ${data.moNhom.maNhom}`;
+            document.getElementById("suaHocPhanMoNhom").value = `${data.moNhom.hocPhan.id} - ${data.moNhom.hocPhan.tenHocPhan}`;
             document.getElementById("suaSoTietThucHien").value = data.soTietThucHien;
             document.getElementById("suaSoTietThucTe").value = data.soTietThucTe;
             if (data.trangThai === 1 || data.trangThai === 0) {
