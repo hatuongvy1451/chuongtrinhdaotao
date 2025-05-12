@@ -94,7 +94,12 @@ function capNhatCotDiem(event) {
                             alert("Cập nhật cột điểm thành công!");
                             var myModal = new bootstrap.Modal(document.getElementById('modalEditCotDiem'));
                             myModal.hide();
-                            location.reload();
+                            const filterDeCuongChiTiet = document.getElementById('filterDeCuongChiTiet');
+                            if (filterDeCuongChiTiet.value) {
+                                loadCotDiemTheoDeCuong();
+                            } else {
+                                location.reload();
+                            }
                         })
                         .catch(error => {
                             console.error("Lỗi khi cập nhật cột điểm:", error);
