@@ -4,6 +4,7 @@
  */
 package com.mycompany.chuongtrinhdaotao.controller;
 
+import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_mo_nhom;
 import com.mycompany.chuongtrinhdaotao.service.ke_hoach_mo_nhom_Service;
 import java.util.List;
@@ -43,6 +44,15 @@ public class ke_hoach_mo_nhom_Controller {
         ke_hoach_mo_nhom khmn = keHoachMoNhomService.findById(id);
         if(khmn != null){
             return ResponseEntity.ok(khmn);
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/kehoachmonhom/hocphan/{id}")
+    public ResponseEntity<hoc_phan> getHocPhanByIdNhom(@PathVariable int id) {
+        ke_hoach_mo_nhom khmn = keHoachMoNhomService.findById(id);
+        if (khmn != null && khmn.getHocPhan() != null) {
+            return ResponseEntity.ok(khmn.getHocPhan());
         }
         return ResponseEntity.notFound().build();
     }
