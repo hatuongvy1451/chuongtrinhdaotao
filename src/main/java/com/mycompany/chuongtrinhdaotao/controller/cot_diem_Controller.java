@@ -13,6 +13,7 @@ import com.mycompany.chuongtrinhdaotao.model.cot_diem;
 import com.mycompany.chuongtrinhdaotao.model.de_cuong_chi_tiet;
 import com.mycompany.chuongtrinhdaotao.service.cot_diem_Service;
 import com.mycompany.chuongtrinhdaotao.service.de_cuong_chi_tiet_Service;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class cot_diem_Controller {
@@ -55,6 +57,26 @@ public class cot_diem_Controller {
             return ResponseEntity.ok(cotDiem); 
         }
         return ResponseEntity.notFound().build();  
+    }
+    
+    @GetMapping("/cotdiem/tong-ty-le")
+    public ResponseEntity<Double> getTongTyLe(@RequestParam int dcctId) {
+        double tong = cotDiemService.tongTyLeIDDCCT(dcctId);
+        return ResponseEntity.ok(tong);
+    }
+    
+    @GetMapping("/cotdiem/kiem-tra-ten")
+    public ResponseEntity<Map<String, Boolean>> checkTenCotDiem(@RequestParam int dcctId, @RequestParam String tenCotDiem) {
+        boolean exists = cotDiemService.checkTenCotDiem(dcctId, tenCotDiem);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", exists);
+        return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping("/cotdiem/loc-theo-dcct/{dcctId}")
+    public ResponseEntity<List<cot_diem>> getCotDiemTheoDeCuong(@PathVariable int dcctId) {
+        List<cot_diem> dsCotDiem = cotDiemService.findByDeCuongChiTietId(dcctId);
+        return ResponseEntity.ok(dsCotDiem);
     }
     
     @DeleteMapping("/cotdiem/xoa/{id}")
