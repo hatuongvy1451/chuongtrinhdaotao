@@ -88,6 +88,20 @@ function themKeHoachMoNhom(event){
         thoiGianKetThuc: document.getElementById('thoiGianKetThuc').value,
         trangThai: 1
     };
+    
+    const startTime = new Date(khmnData.thoiGianBatDau);
+    const endTime = new Date(khmnData.thoiGianKetThuc);
+
+    if (startTime >= endTime) {
+        alert("Thời gian bắt đầu phải trước thời gian kết thúc!");
+        return;
+    }
+    
+    const slSinhVien = parseInt(khmnData.slSinhVien, 10);
+    if (isNaN(slSinhVien) || slSinhVien <= 0) {
+        alert("Số lượng sinh viên phải là số nguyên dương!");
+        return; 
+    }
 
     fetch("/kehoachmonhom/them", {
         method: "POST",
