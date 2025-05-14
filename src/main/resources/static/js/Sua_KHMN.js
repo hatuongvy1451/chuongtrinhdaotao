@@ -47,11 +47,6 @@ function capNhatKeHoachMoNhom(event) {
     const thoiGianBatDau = document.getElementById("suaTGBD").value;
     const thoiGianKetThuc = document.getElementById("suaTGKT").value;
     const trangThai = document.getElementById("suaTrangThaiMoNhom").value;
-    
-    if(slSinhVien < 1){
-        alert("Số lượng sinh viên phải lớn hơn hoặc bằng 1!");
-        return;
-    }
 
     const keHoachMoNhomData = {
         id: id,
@@ -64,6 +59,21 @@ function capNhatKeHoachMoNhom(event) {
         thoiGianKetThuc: thoiGianKetThuc,
         trangThai: trangThai
     };
+    
+    const startTime = new Date(keHoachMoNhomData.thoiGianBatDau);
+    const endTime = new Date(keHoachMoNhomData.thoiGianKetThuc);
+
+    if (startTime >= endTime) {
+        alert("Thời gian bắt đầu phải trước thời gian kết thúc!");
+        return;
+    }
+    
+    const slSinhVienInt = parseInt(slSinhVien, 10);
+
+    if (isNaN(slSinhVienInt) || slSinhVienInt <= 0) {
+        alert("Số lượng sinh viên phải là một số nguyên dương!");
+        return;
+    }
 
     fetch(`/kehoachmonhom/sua/${id}`, {
         method: "PUT",
