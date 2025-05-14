@@ -186,7 +186,7 @@
                         <thead class="thead-dark text-center">
                             <tr>
                                 <th>#</th>
-                                <th>CTĐT</th>
+                                <th>Chương Trình Đào Tạo</th>
                                 <th>Mã khối kiến thức</th>
                                 <th>Tên khối kiến thức</th>
                                 <th>Tín chỉ tối thiểu</th>
@@ -195,7 +195,7 @@
                         <tbody class="text-center">
                             <tr th:each="khungChuongTrinh : ${khungChuongTrinhs}">
                                 <td th:text="${khungChuongTrinh.id}"></td>
-                                <td th:text="${khungChuongTrinh.ctdt.id}"></td>
+                                <td th:text="${khungChuongTrinh.ctdt.maCTDT} + ' - ' + ${khungChuongTrinh.ctdt.tenCTDT}"></td>
                                 <td th:text="${khungChuongTrinh.maKhoi}"></td>
                                 <td th:text="${khungChuongTrinh.tenKhoi}"></td>
                                 <td th:text="${khungChuongTrinh.soTinChiToiThieu}"></td>
