@@ -19,8 +19,9 @@ public class cot_diem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; 
     
-    @Column(name = "id_decuongct", nullable = false)
-    private int idDeCuongCT; 
+    @ManyToOne
+    @JoinColumn(name = "id_decuongct", referencedColumnName = "id", nullable = false)
+    private de_cuong_chi_tiet dcct; 
 
     @Column(name = "ten_cot_diem", nullable = false)
     private String tenCotDiem; 
@@ -40,12 +41,12 @@ public class cot_diem {
         this.id = id;
     }
 
-    public int getIdDeCuongCT() {
-        return idDeCuongCT;
+    public de_cuong_chi_tiet getDcct() {
+        return dcct;
     }
 
-    public void setIdDeCuongCT(int idDeCuongCT) {
-        this.idDeCuongCT = idDeCuongCT;
+    public void setDcct(de_cuong_chi_tiet dcct) {
+        this.dcct = dcct;
     }
 
     public String getTenCotDiem() {
