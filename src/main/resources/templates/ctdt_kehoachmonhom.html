@@ -193,7 +193,7 @@
                             <tr th:each="kehoachmn : ${keHoachMoNhom}">
                                 <td th:text="${kehoachmn.id}"></td>
                                 <td th:text="${kehoachmn.maNhom}"></td>
-                                <td th:text="|${kehoachmn.hocPhan.id} - ${kehoachmn.hocPhan.tenHocPhan}|"></td>
+                                <td th:text="${kehoachmn.hocPhan.tenHocPhan}"></td>
                                 <td th:text="${kehoachmn.namHoc}"></td>
                                 <td th:text="${kehoachmn.hocKy}"></td>
                                 <td th:text="${kehoachmn.slSinhVien}"></td>
