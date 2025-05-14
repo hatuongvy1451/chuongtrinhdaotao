@@ -97,10 +97,4 @@ public class user_Controller {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Đã xảy ra lỗi!");
         }
     }
-    
-    @PostMapping("/nguoidung/them")
-    public ResponseEntity<user> addNguoiDung(@RequestBody user User){
-        user saved = userService.addUser(User);
-        return ResponseEntity.ok(saved);
-    }
 }
