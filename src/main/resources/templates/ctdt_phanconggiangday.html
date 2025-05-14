@@ -192,7 +192,7 @@
                             <tr th:each="pcgd : ${phanCongGiangDay}">
                                 <td th:text="${pcgd.id}"></td>
                                 <td th:text="|${pcgd.giangVien.maGiangVien} - ${pcgd.giangVien.tenGiangVien}|"></td>
-                                <td th:text="|${pcgd.moNhom.id} - ${pcgd.moNhom.maNhom}|"></td>
+                                <td th:text="${pcgd.moNhom.maNhom}"></td>
                                 <td th:text="${pcgd.soTietThucHien}"></td>
                                 <td th:text="${pcgd.soTietThucTe}"></td>
                                 <td th:text="${pcgd.trangThai == 1 ? 'Đang hoạt động' : 'Đã kết thúc'}"></td>
