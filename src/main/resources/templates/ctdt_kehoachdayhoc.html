@@ -195,8 +195,8 @@
                             <!-- Dữ liệu sẽ render ở đây -->
                             <tr th:each="kehoachdh : ${keHoachDayHoc}">
                                 <td th:text="${kehoachdh.id}"></td>
-                                <td th:text="|${kehoachdh.ctdt.id} - ${kehoachdh.ctdt.maCTDT}|"></td>
-                                <td th:text="|${kehoachdh.hocPhan.id} - ${kehoachdh.hocPhan.tenHocPhan}|"></td>
+                                <td th:text="${kehoachdh.ctdt.maCTDT}"></td>
+                                <td th:text="${kehoachdh.hocPhan.tenHocPhan}"></td>
                                 <td th:text="${kehoachdh.hocKyThucHien}"></td>
                                 <td th:text="${kehoachdh.namHoc}"></td>
                                 <td th:text="${kehoachdh.trangThai == 1 ? 'Đang mở' : 'Đã kết thúc'}"></td>
