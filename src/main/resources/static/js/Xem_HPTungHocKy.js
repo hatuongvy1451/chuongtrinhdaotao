@@ -22,7 +22,7 @@ function loadHocPhanTheoHocKy() {
                 tbody.append(`
                     <tr>
                         <td>${hp.id}</td>
-                        <td>${hp.khungChuongTrinh.id}</td>
+                        <td>${hp.khungChuongTrinh.maKhoi} - ${hp.khungChuongTrinh.tenKhoi}</td>
                         <td>${hp.maHocPhan}</td>
                         <td>${hp.tenHocPhan}</td>
                         <td>${hp.soTinChi}</td>
