@@ -189,7 +189,7 @@
                       <tbody class="text-center">
                         <tr th:each="decuong : ${decuongList}">
                             <td th:text="${decuong.id}"></td>
-                            <td th:text="|${decuong.hocPhan.id} - ${decuong.hocPhan.tenHocPhan}|"></td>
+                            <td th:text="${decuong.hocPhan.tenHocPhan}"></td>
                             <td th:text="${decuong.moTa}"></td>
                             <td th:text="${decuong.mucTieu}"></td>
                             <td th:text="${decuong.chuongNoiDung}"></td>
