@@ -271,7 +271,20 @@ INSERT INTO `ctdt_khungchuongtrinh` (`id`, `id_thongtin`, `ma_khoi`, `ten_khoi`,
 (2, 1, 'CSN', 'Khối kiến thức Cơ sở ngành', 30),
 (3, 1, 'CN', 'Khối kiến thức Chuyên ngành', 35),
 (4, 1, 'TN', 'Khối kiến thức Tốt nghiệp', 40),
-(5, 1, 'TC', 'Khối kiến thức Tự chọn mở rộng', 20);
+(5, 1, 'TC', 'Khối kiến thức Tự chọn mở rộng', 20),
+(6, 2, 'DC', 'Khối kiến thức Đại cương', 40),
+(7, 2, 'CSN', 'Khối kiến thức Cơ sở ngành', 30),
+(8, 2, 'CN', 'Khối kiến thức Chuyên ngành', 35),
+(9, 2, 'TN', 'Khối kiến thức Tốt nghiệp', 30),
+(10, 3, 'DC', 'Khối kiến thức Đại cương', 42),
+(11, 3, 'CSN', 'Khối kiến thức Cơ sở ngành', 28),
+(12, 3, 'CN', 'Khối kiến thức Chuyên ngành', 40),
+(13, 3, 'TN', 'Khối kiến thức Tốt nghiệp', 30),
+(14, 4, 'DC', 'Khối kiến thức Đại cương', 45),
+(15, 4, 'CSN', 'Khối kiến thức Cơ sở ngành', 35),
+(16, 4, 'CN', 'Khối kiến thức Chuyên ngành', 40),
+(17, 4, 'TN', 'Khối kiến thức Tốt nghiệp', 30),
+(18, 4, 'TC', 'Khối kiến thức Tự chọn mở rộng', 20);
 
 -- --------------------------------------------------------
 
@@ -291,14 +304,25 @@ CREATE TABLE `ctdt_khungchuongtrinh_khoikienthuc` (
 -- Đang đổ dữ liệu cho bảng `ctdt_khungchuongtrinh_khoikienthuc`
 --
 
-DELETE FROM `ctdt_khungchuongtrinh_khoikienthuc`;
-
 INSERT INTO `ctdt_khungchuongtrinh_khoikienthuc` (`id`, `id_khungct`, `id_khoikienthuc`, `so_tin_chi_bat_buoc`, `so_tin_chi_tu_chon`) VALUES
 (1, 1, 1, 40, 5),
 (2, 2, 2, 25, 5),
 (3, 3, 3, 30, 5),
 (4, 4, 4, 35, 5),
-(5, 5, 5, 10, 10);
+(5, 5, 5, 10, 10),
+(6, 6, 1, 40, 5),
+(7, 7, 2, 25, 5),
+(8, 8, 3, 30, 5),
+(9, 9, 4, 35, 5),
+(10, 10, 1, 10, 10),
+(11, 11, 2, 40, 5),
+(12, 12, 3, 25, 5),
+(13, 13, 4, 30, 5),
+(14, 14, 1, 35, 5),
+(15, 15, 2, 10, 10),
+(16, 16, 3, 40, 5),
+(17, 17, 4, 25, 5),
+(18, 18, 5, 30, 5);
 
 -- --------------------------------------------------------
 
