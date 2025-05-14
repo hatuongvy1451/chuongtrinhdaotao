@@ -12,7 +12,7 @@ function loadCTDTActive() {
             data.forEach(item => {
                 let option = document.createElement('option');
                 option.value = item.id; 
-                option.text = item.tenChuongTrinh || ("CTDT " + item.id); 
+                option.text = item.maCTDT + " - " + item.tenCTDT;
                 select.appendChild(option);
             });
         })
