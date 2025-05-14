@@ -85,8 +85,4 @@ public class user_Service {
         }
         return null;
     }
-   
-    public user addUser(user us){
-        return userRepository.save(us);
-    }
 }
