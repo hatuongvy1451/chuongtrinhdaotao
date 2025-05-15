@@ -20,4 +20,6 @@ public interface giang_vien_Repository extends JpaRepository<giang_vien, Integer
     giang_vien findByEmailGiangVien(String email);
     
     List<giang_vien> findByTrangThai(int trangThai);
+    
+    boolean existsByMaGiangVien(String maGiangVien);
 }
