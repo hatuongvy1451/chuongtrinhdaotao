@@ -26,4 +26,6 @@ public interface thong_tin_chung_Repository extends JpaRepository<thong_tin_chun
    
    @Query("SELECT tt.id, tt.tenCTDT FROM thong_tin_chung tt")
    List<Object[]> findAllIdAndTenCTDT();
+   
+   boolean existsByMaCTDT(String maCTDT);
 }
