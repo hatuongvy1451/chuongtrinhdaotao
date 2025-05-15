@@ -41,8 +41,20 @@ function capNhatKeHoachDayHoc(event){
     const namHoc = document.getElementById("suaNamHoc").value;
     const trangThai = document.getElementById("suaTrangThaiKHDH").value;
     
-    if(hocKyThucHien < 1){
-        alert("Học kỳ thực hiện phải lớn hơn hoặc bằng 1!");
+    if (isNaN(hocKyThucHien) || hocKyThucHien < 1) {
+        alert("Học kỳ thực hiện phải là số và lớn hơn hoặc bằng 1!");
+        return;
+    }
+
+    const namHocRegex = /^\d{4}-\d{4}$/;
+    if (!namHocRegex.test(namHoc)) {
+        alert("Năm học phải có định dạng YYYY-YYYY (ví dụ: 2024-2025)!");
+        return;
+    }
+
+    const [namTruoc, namSau] = namHoc.split('-').map(Number);
+    if (namSau - namTruoc !== 1) {
+        alert("Năm học không hợp lệ! Năm sau phải lớn hơn năm trước đúng 1.");
         return;
     }
     
