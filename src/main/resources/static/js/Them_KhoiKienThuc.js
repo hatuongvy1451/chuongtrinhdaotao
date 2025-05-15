@@ -22,7 +22,13 @@ function themKhoiKienThuc(event){
     })
     .then(response => {
         if(!response.ok){
-            throw new Error("Thêm khối kiến thức thất bại");
+            if (response.status === 409) { 
+                return response.json().then(err => {
+                    throw new Error(err.message || "Mã khối kiến thức đã tồn tại!");
+                });
+            } else {
+                throw new Error("Thêm khối kiến thức thất bại!");
+            }
         }
         return response.json();
     })
@@ -34,7 +40,7 @@ function themKhoiKienThuc(event){
     })
     .catch(error=>{
         console.error("Lỗi thêm Khối Kiến Thúc", error);
-        alert("Lỗi khi thêm khối kiến thức");
+        alert(error.message);
     });
 }
 document.getElementById('formThemKKT').addEventListener("submit", themKhoiKienThuc);
