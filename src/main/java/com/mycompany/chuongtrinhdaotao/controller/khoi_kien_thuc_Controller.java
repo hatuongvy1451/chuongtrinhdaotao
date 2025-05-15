@@ -73,10 +73,15 @@ public class khoi_kien_thuc_Controller {
         return ResponseEntity.notFound().build();
     }
     
-    //Thêm
     @PostMapping("/khoikienthuc/them")
-    public ResponseEntity<khoi_kien_thuc> addKhoiKienThuc(@RequestBody khoi_kien_thuc khoiKienThuc){
-        khoi_kien_thuc saved = khoiKienThucService.addKhoiKiênThuc(khoiKienThuc);
-        return ResponseEntity.ok(saved);  
+    public ResponseEntity<?> themKhoiKienThuc(@RequestBody khoi_kien_thuc khoiKienThuc) {
+        if (khoiKienThucService.existsByMaKhoi(khoiKienThuc.getMaKhoi())) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", "Mã khối kiến thức đã tồn tại!"));
+        }
+
+        khoiKienThucService.addKhoiKienThuc(khoiKienThuc);
+        return ResponseEntity.ok(khoiKienThuc);
     }
 }
