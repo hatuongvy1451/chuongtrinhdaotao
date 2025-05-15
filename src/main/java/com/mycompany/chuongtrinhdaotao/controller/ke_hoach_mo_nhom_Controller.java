@@ -84,8 +84,14 @@ public class ke_hoach_mo_nhom_Controller {
     }
     
     @PostMapping("/kehoachmonhom/them")
-    public ResponseEntity<ke_hoach_mo_nhom> themKeHoachMoNhom(@RequestBody ke_hoach_mo_nhom khmn){
-        ke_hoach_mo_nhom saved = keHoachMoNhomService.themKeHoachMoNhom(khmn);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> themNhom(@RequestBody ke_hoach_mo_nhom moNhom) {
+        if (keHoachMoNhomService.existsByMaNhom(moNhom.getMaNhom())) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", "Mã nhóm đã tồn tại!"));
+        }
+
+        keHoachMoNhomService.addNhom(moNhom);
+        return ResponseEntity.ok(moNhom);
     }
 }
