@@ -11,9 +11,12 @@ import com.mycompany.chuongtrinhdaotao.model.phan_cong_giang_day;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_day_hoc_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_mo_nhom_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.phan_cong_giang_day_Repository;
+import com.mycompany.chuongtrinhdaotao.repository.thong_tin_chung_Repository;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,10 @@ public class ke_hoach_day_hoc_Service {
     
     @Autowired
     private phan_cong_giang_day_Repository phanCongGiangDayRepository;
+    
+    @Autowired
+    private thong_tin_chung_Repository ttchungRepo;
+    
     
     public List<ke_hoach_day_hoc> getAllKeHoachDayHoc(){
         return keHoachDayHocRepository.findAll();
@@ -147,5 +154,17 @@ public class ke_hoach_day_hoc_Service {
     
     public List<hoc_phan> findHocPhanDuocMo() {
         return keHoachDayHocRepository.findHocPhanDuocMo();
+    }
+    
+    public Map<Integer, String> getAllCurriculumNames() {
+
+        List<Object[]> rawData = ttchungRepo.findAllIdAndTenCTDT();
+        Map<Integer, String> result = new LinkedHashMap<>();
+        for (Object[] row : rawData) {
+            Integer id = (Integer) row[0];
+            String name = (String) row[1];
+            result.put(id, name);
+        }
+        return result;
     }
 }
