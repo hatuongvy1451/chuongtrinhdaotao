@@ -6,6 +6,7 @@ package com.mycompany.chuongtrinhdaotao.controller;
 
 import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
+import com.mycompany.chuongtrinhdaotao.service.hoc_phan_Service;
 import com.mycompany.chuongtrinhdaotao.service.ke_hoach_day_hoc_Service;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,9 @@ public class ke_hoach_day_hoc_Controller {
     
     @Autowired
     private ke_hoach_day_hoc_Service khdhService;
+    
+    @Autowired
+    private hoc_phan_Service hocPhanService;
     
     @GetMapping("/kehoachdayhoc")
     public String getKeHoachDayHocList(Model model){
@@ -99,5 +103,16 @@ public class ke_hoach_day_hoc_Controller {
     public ResponseEntity<List<hoc_phan>> getHocPhanTheoKeHoach() {
         List<hoc_phan> hocPhanList = khdhService.findHocPhanDuocMo();
         return ResponseEntity.ok(hocPhanList);
+    }
+    
+    @GetMapping("/kehoach")
+    public String showAllHocPhanTheoKhoi(Model model) {
+        Map<Integer, Map<String, List<Map<String, Object>>>> allHocPhanData = hocPhanService.getAllHocPhanTheoKhoiVoiHocKy();
+        Map<Integer, String> curriculumNames = khdhService.getAllCurriculumNames();
+
+        model.addAttribute("allHocPhanData", allHocPhanData);
+        model.addAttribute("curriculumNames", curriculumNames);
+
+        return "kehoach";
     }
 }
