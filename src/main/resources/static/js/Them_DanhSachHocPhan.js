@@ -33,7 +33,13 @@ function addDanhSachHocPhan(event) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error("Thêm mới học phần thất bại");
+            if (response.status === 409) { 
+                return response.json().then(err => {
+                    throw new Error(err.message || "Mã học phần đã tồn tại!");
+                });
+            } else {
+                throw new Error("Thêm mới học phần thất bại!");
+            }
         }
         return response.json();
     })
@@ -45,7 +51,7 @@ function addDanhSachHocPhan(event) {
     })
     .catch(error => {
         console.error("Lỗi thêm mới học phần", error);
-        alert("Lỗi thêm mới học phần");
+        alert(error.message);
     });
 }
 
