@@ -11,7 +11,9 @@ import com.mycompany.chuongtrinhdaotao.repository.phan_cong_giang_day_Repository
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -98,7 +100,14 @@ public class ke_hoach_mo_nhom_Service {
         return null;
     }
     
-    public ke_hoach_mo_nhom themKeHoachMoNhom(ke_hoach_mo_nhom khmn){
-        return keHoachMoNhomRepository.save(khmn);
+    public ke_hoach_mo_nhom addNhom(ke_hoach_mo_nhom moNhom) {
+        if (keHoachMoNhomRepository.existsByMaNhom(moNhom.getMaNhom())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Mã nhóm đã tồn tại!");
+        }
+        return keHoachMoNhomRepository.save(moNhom);
+    }
+    
+    public boolean existsByMaNhom(String maNhom) {
+        return keHoachMoNhomRepository.existsByMaNhom(maNhom);
     }
 }
