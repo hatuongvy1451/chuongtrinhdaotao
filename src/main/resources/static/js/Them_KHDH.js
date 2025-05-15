@@ -43,6 +43,28 @@ document.getElementById('ctdtKHDH').addEventListener('change', function () {
 function themKeHoachDayHoc(event){
     event.preventDefault();
     
+    const hocKyThucHienRaw = document.getElementById('hocKyThucHien').value;
+    const hocKyThucHien = parseInt(hocKyThucHienRaw, 10);
+
+    const namHoc = document.getElementById('namHoc').value;
+    const namHocRegex = /^\d{4}-\d{4}$/;
+
+    if (isNaN(hocKyThucHien) || hocKyThucHien < 1) {
+        alert("Học kỳ thực hiện phải là số nguyên >= 1!");
+        return;
+    }
+
+    if (!namHocRegex.test(namHoc)) {
+        alert("Năm học phải có định dạng YYYY-YYYY (ví dụ: 2024-2025)");
+        return;
+    }
+
+    const [namTruoc, namSau] = namHoc.split('-').map(Number);
+    if (namSau - namTruoc !== 1) {
+        alert("Năm học không hợp lệ! Năm sau phải lớn hơn năm trước đúng 1.");
+        return;
+    }
+    
     // Lấy dữ liệu từ form
     const keHoachData = {
         ctdt: { id: document.getElementById('ctdtKHDH').value },
