@@ -242,7 +242,7 @@
                               <select class="form-control" id="maKhungCT" name="maKhungCT" required>
                                 <option value="" disabled selected>-- Chọn Khung CT --</option>
                                 <th:block th:each="khungChuongTrinh : ${khungChuongTrinhs}">
-                                    <option th:value="${khungChuongTrinh.id}" th:text="${khungChuongTrinh.maKhoi + ' - ' + khungChuongTrinh.tenKhoi}"></option>
+                                    <option th:value="${khungChuongTrinh.id}" th:text="${khungChuongTrinh.ctdt.maCTDT + ' - ' + khungChuongTrinh.tenKhoi}"></option>
                                 </th:block>
                                 
                                 <!-- Thêm các mã khung chương trình khác -->
