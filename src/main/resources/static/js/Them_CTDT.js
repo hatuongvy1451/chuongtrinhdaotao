@@ -30,19 +30,25 @@ function themChuongTrinhDaoTao(event) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error("Thêm chương trình đào tạo thất bại!");
+            if (response.status === 409) { 
+                return response.json().then(err => {
+                    throw new Error(err.message || "Mã chương trình đào tạo đã tồn tại!");
+                });
+            } else {
+                throw new Error("Thêm chương trình đào tạo thất bại!");
+            }
         }
         return response.json();
     })
     .then(data => {
         alert("Thêm chương trình đào tạo thành công!");
-        var myModal = new bootstrap.Modal(document.getElementById('modalAdd'));
+        var myModal = bootstrap.Modal.getInstance(document.getElementById('modalAdd'));
         myModal.hide();
         location.reload();
     })
     .catch(error => {
         console.error("Lỗi thêm CTDT:", error);
-        alert("Lỗi khi thêm chương trình đào tạo!");
+        alert(error.message);
     });
 }
 
