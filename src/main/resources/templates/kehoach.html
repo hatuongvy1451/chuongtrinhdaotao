@@ -95,22 +95,22 @@
 
       <table>
         <thead>
-        <tr>
-          <th rowspan="2">STT</th>
-          <th rowspan="2">Mã HP</th>
-          <th rowspan="2">Tên Học Phần</th>
-          <th rowspan="2">Số TC</th>
-          <th colspan="12">Học kỳ thực hiện</th>
-          <th rowspan="2">Mã HP trước</th>
-        </tr>
-        <tr>
-          <th th:each="i : ${#numbers.sequence(1, 12)}" th:text="${i}"></th>
-        </tr>
+            <tr>
+              <th rowspan="2">STT</th>
+              <th rowspan="2">Mã HP</th>
+              <th rowspan="2">Tên Học Phần</th>
+              <th rowspan="2">Số TC</th>
+              <th colspan="12">Học kỳ thực hiện</th>
+              <th rowspan="2">Mã HP trước</th>
+            </tr>
+            <tr>
+              <th th:each="i : ${#numbers.sequence(1, 12)}" th:text="${i}"></th>
+            </tr>
         </thead>
         <tbody>
         <th:block th:each="entry : ${curriculum.value}">
           <tr>
-            <td colspan="16" class="khoi-ten" th:text="${entry.key}">Tên khối</td>
+            <td colspan="17" class="khoi-ten" th:text="${entry.key}">Tên khối</td>
           </tr>
           <tr th:each="hp, stat : ${entry.value}">
             <td th:text="${stat.index + 1}">1</td>
