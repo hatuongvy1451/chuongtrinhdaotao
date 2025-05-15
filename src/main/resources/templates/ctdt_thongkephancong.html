@@ -1,8 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Bảng phân công giảng dạy</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -13,65 +25,39 @@
             --text-color: #333;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: #f5f5f5;
-        }
-
-        .header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 500;
-            text-align: center;
-        }
-
         .print-container {
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
             overflow: hidden;
+            margin: 20px 0;
         }
 
-        table {
+        .assignment-table {
             border-collapse: collapse;
             width: 100%;
             font-size: 14px;
         }
 
-        th, td {
+        .assignment-table th,
+        .assignment-table td {
             border: 1px solid var(--border-color);
             padding: 12px;
             text-align: center;
             vertical-align: middle;
         }
 
-        th {
+        .assignment-table th {
             background-color: var(--primary-color);
             color: white;
             font-weight: 500;
-            position: sticky;
-            top: 0;
         }
 
-        tr:nth-child(even) {
+        .assignment-table tr:nth-child(even) {
             background-color: var(--light-gray);
         }
 
-        tr:hover {
+        .assignment-table tr:hover {
             background-color: rgba(52, 152, 219, 0.1);
         }
 
@@ -84,30 +70,6 @@
             text-align: left;
         }
 
-        .action-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-
         .print-info {
             font-size: 13px;
             color: #666;
@@ -117,17 +79,6 @@
 
         /* Print-specific styles */
         @media print {
-            body {
-                padding: 0;
-                background: none;
-            }
-
-            .header {
-                box-shadow: none;
-                border-radius: 0;
-                padding: 10px;
-            }
-
             .action-bar, .no-print {
                 display: none;
             }
@@ -137,11 +88,12 @@
                 border-radius: 0;
             }
 
-            table {
+            .assignment-table {
                 font-size: 11pt;
             }
 
-            th, td {
+            .assignment-table th,
+            .assignment-table td {
                 padding: 8px;
             }
 
@@ -152,87 +104,295 @@
         }
     </style>
 </head>
-<body>
-<div class="header">
-    <h1>BẢNG PHÂN CÔNG GIẢNG DẠY</h1>
-</div>
 
-<div class="action-bar">
-    <div class="print-info no-print">
-        Hệ thống quản lý đào tạo - <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/home">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">QLY CTĐT</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="/home">
+                <i class="fas fa-fw fa-home"></i>
+                <span>Trang chủ</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Thông tin chung -->
+        <div class="sidebar-heading">Thông tin chung</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/thongtinchung">
+                <i class="fas fa-info-circle"></i>
+                <span>CTĐT - Thông tin chung</span></a>
+        </li>
+
+        <!-- Khung chương trình & học phần -->
+        <div class="sidebar-heading">Khung CT & Học phần</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/khungchuongtrinh">
+                <i class="fas fa-project-diagram"></i>
+                <span>Khung chương trình</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/khoikienthuc">
+                <i class="fas fa-layer-group"></i>
+                <span>Khối kiến thức</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/hocphan">
+                <i class="fas fa-book"></i>
+                <span>Danh sách học phần</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/decuongchitiet">
+                <i class="fas fa-file-alt"></i>
+                <span>Đề cương chi tiết</span></a>
+        </li>
+
+        <!-- Kế hoạch đào tạo -->
+        <div class="sidebar-heading">Kế hoạch đào tạo</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/kehoachdayhoc">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Kế hoạch dạy học</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/kehoachmonhom">
+                <i class="fas fa-layer-group"></i>
+                <span>Kế hoạch mở nhóm lớp</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/phanconggiangday">
+                <i class="fas fa-user-clock"></i>
+                <span>Phân công giảng dạy</span></a>
+        </li>
+
+        <!-- Quản lý giảng viên -->
+        <div class="sidebar-heading" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">Giảng viên</div>
+        <li class="nav-item" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+            <a class="nav-link" href="/giangvien">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Danh sách giảng viên</span></a>
+        </li>
+
+        <!--Quản lý người dùng-->
+        <div class="sidebar-heading" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">Người dùng</div>
+        <li class="nav-item" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+            <a class="nav-link" href="/nguoidung">
+                <i class="fas fa-users-cog"></i>
+                <span>Quản lý người dùng</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="'Xin chào! ' + ${session.nguoiDungDangNhap.hoTen}"></span>
+                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalThongTinCaNhan">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Thông tin cá nhân
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/dangnhap">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Bảng phân công giảng dạy</h1>
+                    <div class="print-info no-print">
+                        Hệ thống quản lý đào tạo - <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card shadow mb-4 no-print">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Tùy chọn</h6>
+                                <button onclick="window.print()" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-print"></i> In báo cáo
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="print-container">
+                            <table class="assignment-table">
+                                <thead>
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th rowspan="2">Mã GV</th>
+                                    <th rowspan="2">Tên giảng viên</th>
+                                    <th rowspan="2">Chuyên môn</th>
+                                    <th rowspan="2">Tên học phần</th>
+                                    <th rowspan="2">Mã học phần</th>
+                                    <th rowspan="2">Số TC</th>
+                                    <th rowspan="2">Số tiết HP</th>
+                                    <th colspan="3">Số lớp theo học kỳ</th>
+                                    <th rowspan="2">Tổng tiết</th>
+                                </tr>
+                                <tr>
+                                    <th>HK1</th>
+                                    <th>HK2</th>
+                                    <th>HK3</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item, iter : ${danhSach}" th:class="${item.totalRow} ? 'total-row' : ''">
+                                    <td th:if="${!item.totalRow}">
+                                        <span th:if="${item.teacherSequenceNumber != null}" th:text="${item.teacherSequenceNumber}"></span>
+                                    </td>
+                                    <td th:if="${item.totalRow}" colspan="4" class="text-left">Tổng cộng</td>
+
+                                    <!-- Teacher info cells - only show if first row for this teacher or if previous row was a different teacher -->
+                                    <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.maGiangVien : ''}"></td>
+                                    <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.tenGiangVien : ''}"></td>
+                                    <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.chuyenMon : ''}"></td>
+
+                                    <td class="text-left" th:text="${item.totalRow} ? '' : ${item.tenHocPhan}"></td>
+                                    <td th:text="${item.totalRow} ? '' : ${item.maHocPhan}"></td>
+                                    <td th:text="${item.totalRow} ? '' : ${item.soTinChi}"></td>
+                                    <td th:text="${item.totalRow} ? '' : ${item.soTietHP}"></td>
+
+                                    <td th:text="${item.totalRow} ? '' : ${item.soLopHK1}"></td>
+                                    <td th:text="${item.totalRow} ? '' : ${item.soLopHK2}"></td>
+                                    <td th:text="${item.totalRow} ? '' : ${item.soLopHK3}"></td>
+
+                                    <td th:text="${item.totalRow} ? ${item.tongTiet} : ${item.soTietHP * item.tongSoLop}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white no-print">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Bản quyền © 2025 - Chương trình đào tạo | Phiên bản 1.0</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
     </div>
-    <button onclick="window.print()" class="btn btn-primary no-print">
-        <i class="fas fa-print"></i> In báo cáo
-    </button>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Modal Thông Tin Cá Nhân -->
+<div class="modal fade" id="modalThongTinCaNhan" tabindex="-1" role="dialog" aria-labelledby="modalThongTinCaNhanLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form class="modal-content" th:action="@{/capnhat-thongtin}" method="post">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="modalThongTinCaNhanLabel">Thông tin cá nhân</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="tenDN">Tên đăng nhập</label>
+                    <input type="text" class="form-control" id="tenDN" name="tenDN" th:value="${session.nguoiDungDangNhap.tenDangNhap}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="hoTen">Họ tên</label>
+                    <input type="text" class="form-control" id="hoTen" name="hoTen" th:value="${session.nguoiDungDangNhap.hoTen}">
+                </div>
+                <div class="form-group">
+                    <label for="emailTT">Email</label>
+                    <input type="email" class="form-control" id="emailTT" name="emailTT" th:value="${session.nguoiDungDangNhap.email}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Cập nhật</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div class="print-container">
-    <table>
-        <thead>
-        <tr>
-            <th rowspan="2">STT</th>
-            <th rowspan="2">Mã GV</th>
-            <th rowspan="2">Tên giảng viên</th>
-            <th rowspan="2">Chuyên môn</th>
-            <th rowspan="2">Tên học phần</th>
-            <th rowspan="2">Mã học phần</th>
-            <th rowspan="2">Số TC</th>
-            <th rowspan="2">Số tiết HP</th>
-            <th colspan="3">Số lớp theo học kỳ</th>
-            <th rowspan="2">Tổng tiết</th>
-        </tr>
-        <tr>
-            <th>HK1</th>
-            <th>HK2</th>
-            <th>HK3</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item, iter : ${danhSach}" th:class="${item.totalRow} ? 'total-row' : ''">
-            <td th:if="${!item.totalRow}">
-                <span th:if="${item.teacherSequenceNumber != null}" th:text="${item.teacherSequenceNumber}"></span>
-            </td>
-            <td th:if="${item.totalRow}" colspan="4" class="text-left">Tổng cộng</td>
-
-            <!-- Teacher info cells - only show if first row for this teacher or if previous row was a different teacher -->
-            <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.maGiangVien : ''}"></td>
-            <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.tenGiangVien : ''}"></td>
-            <td th:if="${!item.totalRow}" th:text="${(iter.index == 0 || item.maGiangVien != danhSach[iter.index-1].maGiangVien) ? item.chuyenMon : ''}"></td>
-
-            <td class="text-left" th:text="${item.totalRow} ? '' : ${item.tenHocPhan}"></td>
-            <td th:text="${item.totalRow} ? '' : ${item.maHocPhan}"></td>
-            <td th:text="${item.totalRow} ? '' : ${item.soTinChi}"></td>
-            <td th:text="${item.totalRow} ? '' : ${item.soTietHP}"></td>
-
-            <td th:text="${item.totalRow} ? '' : ${item.soLopHK1}"></td>
-            <td th:text="${item.totalRow} ? '' : ${item.soLopHK2}"></td>
-            <td th:text="${item.totalRow} ? '' : ${item.soLopHK3}"></td>
-
-            <td th:text="${item.totalRow} ? ${item.tongTiet} : ${item.soTietHP * item.tongSoLop}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="footer no-print" style="margin-top: 20px; text-align: center; font-size: 12px; color: #777;">
-    <p>Bản quyền © 2023 - Trường Đại học của bạn | Phiên bản 1.0</p>
-</div>
-
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- Bootstrap core JavaScript-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/sb-admin-2.min.js"></script>
+<script src="js/Sua_ThongTin.js"></script>
 
 <script>
-
-
-        // Make header sticky when scrolling
-        const table = document.querySelector('table');
-        const ths = table.querySelectorAll('thead th');
-        table.addEventListener('scroll', function() {
-            const scrollTop = table.scrollTop;
-            ths.forEach(th => {
-                th.style.transform = scrollTop > 0 ? 'translateY(' + scrollTop + 'px)' : '';
+    // Make header sticky when scrolling
+    document.addEventListener('DOMContentLoaded', function() {
+        const table = document.querySelector('.assignment-table');
+        if (table) {
+            const ths = table.querySelectorAll('thead th');
+            table.addEventListener('scroll', function() {
+                const scrollTop = table.scrollTop;
+                ths.forEach(th => {
+                    th.style.transform = scrollTop > 0 ? 'translateY(' + scrollTop + 'px)' : '';
+                });
             });
-        });
+        }
     });
 </script>
 </body>
