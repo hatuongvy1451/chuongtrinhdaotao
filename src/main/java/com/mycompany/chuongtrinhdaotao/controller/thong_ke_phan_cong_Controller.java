@@ -40,26 +40,28 @@ public class thong_ke_phan_cong_Controller {
             List<thong_ke_phan_cong> items = entry.getValue();
 
             // Add sequence number to the first row of each teacher
+            // Add sequence number to the first row of each teacher
             if (!items.isEmpty()) {
                 items.get(0).setTeacherSequenceNumber(teacherCounter);
             }
 
-            // Add all subjects for this teacher
+// Add all subjects for this teacher
             ketQua.addAll(items);
 
-            // Calculate totals
+// Calculate total periods (tongTiet) for the teacher
             long tongTiet = items.stream()
-                    .mapToLong(thong_ke_phan_cong::getTongTiet)
+                    .mapToLong(item -> item.getSoTietHP() * item.getTongSoLop())
                     .sum();
 
-            // Add total row for this teacher
-            thong_ke_phan_cong totalRow = new thong_ke_phan_cong(
-                    entry.getKey(),
-                    items.get(0).getTenGiangVien(),
-                    tongTiet
-            );
+// Create and add the total row
+            thong_ke_phan_cong totalRow = new thong_ke_phan_cong();
+            totalRow.setMaGiangVien(entry.getKey());
+            totalRow.setTenGiangVien(items.get(0).getTenGiangVien());
+            totalRow.setTongTiet(tongTiet);
             totalRow.setTotalRow(true);
+
             ketQua.add(totalRow);
+
         }
 
         model.addAttribute("danhSach", ketQua);
