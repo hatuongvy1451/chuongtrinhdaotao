@@ -14,7 +14,7 @@ function suaHocPhan(id){
         .then(data => {
             document.getElementById("suaIDHocPhan").value = data.id;
             document.getElementById("suaMaKhungCT").value = data.khungChuongTrinh.id;
-            document.getElementById("suaMaKhoiTenKhoi").value = data.khungChuongTrinh.maKhoi + " - " + data.khungChuongTrinh.tenKhoi;
+            document.getElementById("suaMaKhoiTenKhoi").value = data.khungChuongTrinh.ctdt.maCTDT + " - " + data.khungChuongTrinh.tenKhoi;
             document.getElementById("suaMaHocPhan").value = data.maHocPhan;
             document.getElementById("suaTenHocPhan").value = data.tenHocPhan;
             document.getElementById("suaTinChi").value = data.soTinChi;
