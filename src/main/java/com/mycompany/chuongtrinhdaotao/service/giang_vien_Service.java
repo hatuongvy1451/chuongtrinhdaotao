@@ -21,7 +21,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -188,7 +190,14 @@ public class giang_vien_Service {
         };
     }
     
-    public giang_vien themGiangVien(giang_vien giangVien){
+    public giang_vien addGiangVien(giang_vien giangVien) {
+        if (gvRepository.existsByMaGiangVien(giangVien.getMaGiangVien())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Mã giảng viên đã tồn tại!");
+        }
         return gvRepository.save(giangVien);
+    }
+    
+    public boolean existsByMaGiangVien(String maGiangVien) {
+        return gvRepository.existsByMaGiangVien(maGiangVien);
     }
 }
