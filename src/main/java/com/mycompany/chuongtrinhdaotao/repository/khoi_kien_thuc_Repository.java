@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface khoi_kien_thuc_Repository extends JpaRepository<khoi_kien_thuc, Integer> {
-    
+    boolean existsByMaKhoi(String maKhoi);
 }
