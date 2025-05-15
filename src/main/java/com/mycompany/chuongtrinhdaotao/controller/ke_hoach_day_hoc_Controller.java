@@ -4,6 +4,7 @@
  */
 package com.mycompany.chuongtrinhdaotao.controller;
 
+import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
 import com.mycompany.chuongtrinhdaotao.service.ke_hoach_day_hoc_Service;
 import java.util.List;
@@ -92,5 +93,11 @@ public class ke_hoach_day_hoc_Controller {
     public ResponseEntity<ke_hoach_day_hoc> themKeHoachDayHoc(@RequestBody ke_hoach_day_hoc khdh){
         ke_hoach_day_hoc saved = khdhService.themKeHoachDayHoc(khdh);
         return ResponseEntity.ok(saved);
+    }
+    
+    @GetMapping("/kehoachdayhoc/hocphan")
+    public ResponseEntity<List<hoc_phan>> getHocPhanTheoKeHoach() {
+        List<hoc_phan> hocPhanList = khdhService.findHocPhanDuocMo();
+        return ResponseEntity.ok(hocPhanList);
     }
 }
