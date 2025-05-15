@@ -4,6 +4,7 @@
  */
 package com.mycompany.chuongtrinhdaotao.service;
 
+import com.mycompany.chuongtrinhdaotao.model.HocPhanDTO;
 import com.mycompany.chuongtrinhdaotao.model.de_cuong_chi_tiet;
 import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
@@ -12,7 +13,12 @@ import com.mycompany.chuongtrinhdaotao.repository.de_cuong_chi_tiet_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.hoc_phan_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_day_hoc_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_mo_nhom_Repository;
+import com.mycompany.chuongtrinhdaotao.repository.thong_tin_chung_Repository;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +41,9 @@ public class hoc_phan_Service {
     
     @Autowired
     private ke_hoach_mo_nhom_Repository khmnRepository;
+    
+    @Autowired
+    private thong_tin_chung_Repository ttchungRepo;
     
     //get all data
     public List<hoc_phan> getAllHocPhan(){
@@ -166,5 +175,77 @@ public class hoc_phan_Service {
     
     public List<hoc_phan> getHocPhanByIdKhoiKienThuc(int idKhoiKT) {
         return hocPhanRepository.getHocPhanByIdKhoiKienThuc(idKhoiKT);
+    }
+    
+    public List<HocPhanDTO> getHocPhanByCTDT(int ctdtId) {
+        return hocPhanRepository.findHocPhanByCTDTGroupedByKhoi(ctdtId);
+    }
+    public Map<Integer, Map<String, List<Map<String, Object>>>> getAllHocPhanTheoKhoiVoiHocKy() {
+        // Get all curriculum IDs
+        List<String> idCTDTList = getAllIdCTDT();
+
+        // Result map: key = idCTDT, value = hocPhanTheoKhoi structure
+        Map<Integer, Map<String, List<Map<String, Object>>>> result = new LinkedHashMap<>();
+
+        for (String idCTDTStr : idCTDTList) {
+            try {
+                int idCTDT = Integer.parseInt(idCTDTStr);
+                // Get data for each curriculum
+                Map<String, List<Map<String, Object>>> hocPhanData = getHocPhanTheoKhoiVoiHocKy(idCTDT);
+                result.put(idCTDT, hocPhanData);
+            } catch (NumberFormatException e) {
+                // Handle case where idCTDT is not a valid integer
+                System.err.println("Invalid idCTDT format: " + idCTDTStr);
+            }
+        }
+
+        return result;
+    }
+
+    public Map<String, List<Map<String, Object>>> getHocPhanTheoKhoiVoiHocKy(int idCTDT) {
+        List<Object[]> results = hocPhanRepository.findHocPhanTheoKhoiVoiHocKy(idCTDT);
+
+        Map<String, List<Map<String, Object>>> hocPhanTheoKhoi = new LinkedHashMap<>();
+
+        for (Object[] row : results) {
+            hoc_phan hp = (hoc_phan) row[0];
+            String tenKhoi = (String) row[1];
+            Integer hocKy = (Integer) row[2];
+
+            Map<String, Object> hocPhanMap = hocPhanTheoKhoi.computeIfAbsent(tenKhoi, k -> new ArrayList<>())
+                    .stream()
+                    .filter(m -> m.get("maHocPhan").equals(hp.getMaHocPhan()))
+                    .findFirst()
+                    .orElseGet(() -> {
+                        Map<String, Object> newMap = new HashMap<>();
+                        // Include ALL required fields
+                        newMap.put("id", hp.getId());
+                        newMap.put("maHocPhan", hp.getMaHocPhan());
+                        newMap.put("tenHocPhan", hp.getTenHocPhan());
+                        newMap.put("soTinChi", hp.getSoTinChi());
+                        newMap.put("soTietLyThuyet", hp.getSoTietLyThuyet());
+                        newMap.put("soTietCong", hp.getSoTietCong());
+                        newMap.put("soTietThucHanh", hp.getSoTietThucHanh());
+                        newMap.put("soTietThucTap", hp.getSoTietThucTap());
+                        newMap.put("heSoHocPhan", hp.getHeSoHocPhan());
+                        newMap.put("maHPTruoc", hp.getMaHPTruoc());
+
+                        // Initialize học kỳ
+                        for (int i = 1; i <= 12; i++) {
+                            newMap.put("hocKy" + i, false);
+                        }
+                        hocPhanTheoKhoi.get(tenKhoi).add(newMap);
+                        return newMap;
+                    });
+
+            if (hocKy != null && hocKy >= 1 && hocKy <= 12) {
+                hocPhanMap.put("hocKy" + hocKy, true);
+            }
+        }
+        return hocPhanTheoKhoi;
+    }
+    
+    public List<String> getAllIdCTDT() {
+        return ttchungRepo.findAllId();
     }
 }
