@@ -83,6 +83,18 @@ function themPhanCongGiangDay(event){
         soTietThucTe: document.getElementById('soTietThucTe').value,
         trangThai: 1
     };
+    
+    const soTietThucHien = document.getElementById('soTietThucHien').value;
+    if (isNaN(soTietThucHien) || soTietThucHien < 1) {
+        alert("Số tiết thực hiện phải là số và lớn hơn hoặc bằng 1!");
+        return;
+    }
+
+    const soTietThucTe = document.getElementById('soTietThucTe').value;
+    if (isNaN(soTietThucTe) || soTietThucTe < 1) {
+        alert("Số tiết thực tế phải là số và lớn hơn hoặc bằng 1!");
+        return;
+    }
 
     fetch("/phanconggiangday/them", {
         method: "POST",
