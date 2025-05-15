@@ -6,7 +6,11 @@ package com.mycompany.chuongtrinhdaotao.service;
 
 import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
+import com.mycompany.chuongtrinhdaotao.model.ke_hoach_mo_nhom;
+import com.mycompany.chuongtrinhdaotao.model.phan_cong_giang_day;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_day_hoc_Repository;
+import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_mo_nhom_Repository;
+import com.mycompany.chuongtrinhdaotao.repository.phan_cong_giang_day_Repository;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -25,6 +29,12 @@ public class ke_hoach_day_hoc_Service {
     
     @Autowired
     private ke_hoach_day_hoc_Repository keHoachDayHocRepository;
+    
+    @Autowired
+    private ke_hoach_mo_nhom_Repository keHoachMoNhomRepository;
+    
+    @Autowired
+    private phan_cong_giang_day_Repository phanCongGiangDayRepository;
     
     public List<ke_hoach_day_hoc> getAllKeHoachDayHoc(){
         return keHoachDayHocRepository.findAll();
@@ -47,12 +57,40 @@ public class ke_hoach_day_hoc_Service {
 
         if (optional.isPresent()) {
             ke_hoach_day_hoc keHoach = optional.get();
+            hoc_phan hocPhan = keHoach.getHocPhan();
+
+            // Tìm kế hoạch mở nhóm dựa vào học phần
+            List<ke_hoach_mo_nhom> danhSachMoNhom = keHoachMoNhomRepository.findByHocPhan(hocPhan);
 
             if (keHoach.getTrangThai() == 1) {
-                keHoach.setTrangThai(0); // đánh dấu đã xóa
+                keHoach.setTrangThai(0);
                 keHoachDayHocRepository.save(keHoach);
+
+                for (ke_hoach_mo_nhom moNhom : danhSachMoNhom) {
+                    moNhom.setTrangThai(0);
+                    keHoachMoNhomRepository.save(moNhom);
+
+                    // Cập nhật trạng thái phân công giảng dạy theo idNhom
+                    phan_cong_giang_day pcgd = phanCongGiangDayRepository.findByMoNhom_Id(moNhom.getId());
+                    if (pcgd != null) {
+                        pcgd.setTrangThai(0);
+                        phanCongGiangDayRepository.save(pcgd);
+                    }
+                }
+
             } else {
-                keHoachDayHocRepository.deleteById(id); // xóa vĩnh viễn
+                keHoachDayHocRepository.deleteById(id);
+
+                for (ke_hoach_mo_nhom moNhom : danhSachMoNhom) {
+                    keHoachMoNhomRepository.delete(moNhom);
+
+                    // Xóa luôn phân công giảng dạy tương ứng nếu cần
+                    phan_cong_giang_day pcgd = phanCongGiangDayRepository.findByMoNhom_Id(moNhom.getId());
+                    if (pcgd != null) {
+                        pcgd.setTrangThai(0);
+                        phanCongGiangDayRepository.delete(pcgd);
+                    }
+                }
             }
 
             return true;
@@ -65,11 +103,28 @@ public class ke_hoach_day_hoc_Service {
         Optional<ke_hoach_day_hoc> optional = keHoachDayHocRepository.findById(id);
         if (optional.isPresent()) {
             ke_hoach_day_hoc current = optional.get();
-            // Cập nhật các thuộc tính
+
+            // Cập nhật thông tin kế hoạch dạy học
             current.setHocKyThucHien(updated.getHocKyThucHien());
             current.setNamHoc(updated.getNamHoc());
             current.setTrangThai(updated.getTrangThai());
-            return keHoachDayHocRepository.save(current);
+
+            ke_hoach_day_hoc saved = keHoachDayHocRepository.save(current);
+
+            // Cập nhật trạng thái các kế hoạch mở nhóm tương ứng (dựa theo học phần)
+            hoc_phan hocPhan = current.getHocPhan();
+            List<ke_hoach_mo_nhom> danhSachMoNhom = keHoachMoNhomRepository.findByHocPhan(hocPhan);
+            for (ke_hoach_mo_nhom moNhom : danhSachMoNhom) {
+                moNhom.setTrangThai(current.getTrangThai());
+                keHoachMoNhomRepository.save(moNhom);
+                phan_cong_giang_day pcgd = phanCongGiangDayRepository.findByMoNhom_Id(moNhom.getId());
+                if (pcgd != null) {
+                    pcgd.setTrangThai(current.getTrangThai());
+                    phanCongGiangDayRepository.save(pcgd);
+                }
+            }
+
+            return saved;
         }
         return null;
     }
