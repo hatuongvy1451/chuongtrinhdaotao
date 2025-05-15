@@ -20,4 +20,6 @@ public interface ke_hoach_mo_nhom_Repository extends JpaRepository<ke_hoach_mo_n
     List<ke_hoach_mo_nhom> findByHocPhan(hoc_phan hocPhan);
     
     List<ke_hoach_mo_nhom> findByTrangThai(int trangThai);
+    
+    boolean existsByMaNhom(String maNhom);
 }
