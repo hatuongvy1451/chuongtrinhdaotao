@@ -72,10 +72,15 @@ public class thong_tin_chung_Controller {
         return ResponseEntity.notFound().build();
     }
     
-     //Thêm
     @PostMapping("/thongtinchung/them")
-    public ResponseEntity<thong_tin_chung> addChuongTrinhDaoTao(@RequestBody thong_tin_chung thongTinChung){
-        thong_tin_chung saved = thongTinChungService.addChuongTrinhDaoTao(thongTinChung);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> themCTDT(@RequestBody thong_tin_chung ctdt) {
+        if (thongTinChungService.existsByMaCTDT(ctdt.getMaCTDT())) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", "Mã chương trình đào tạo đã tồn tại!"));
+        }
+
+        thongTinChungService.addChuongTrinhDaoTao(ctdt);
+        return ResponseEntity.ok(ctdt);
     }
 }
