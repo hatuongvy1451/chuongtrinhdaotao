@@ -11,7 +11,9 @@ import com.mycompany.chuongtrinhdaotao.repository.thong_tin_chung_Repository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -105,7 +107,14 @@ public class thong_tin_chung_Service {
         return null;
     }
     
-    public thong_tin_chung addChuongTrinhDaoTao(thong_tin_chung thongTinChung){
+    public thong_tin_chung addChuongTrinhDaoTao(thong_tin_chung thongTinChung) {
+        if (thongTinChungRepository.existsByMaCTDT(thongTinChung.getMaCTDT())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Mã CTĐT đã tồn tại!");
+        }
         return thongTinChungRepository.save(thongTinChung);
+    }
+    
+    public boolean existsByMaCTDT(String maCTDT) {
+        return thongTinChungRepository.existsByMaCTDT(maCTDT);
     }
 }
