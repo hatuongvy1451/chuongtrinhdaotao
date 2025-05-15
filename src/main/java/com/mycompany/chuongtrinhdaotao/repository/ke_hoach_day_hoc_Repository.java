@@ -29,4 +29,7 @@ public interface ke_hoach_day_hoc_Repository extends JpaRepository<ke_hoach_day_
     
     @Query("SELECT DISTINCT k.namHoc, k.hocKyThucHien FROM ke_hoach_day_hoc k WHERE k.hocPhan.id = :hocPhanId")
     List<Object[]> findNamHocHocKyByHocPhanId(@Param("hocPhanId") int hocPhanId);
+    
+    @Query("SELECT DISTINCT k.hocPhan FROM ke_hoach_day_hoc k WHERE k.trangThai = 1")
+    List<hoc_phan> findHocPhanDuocMo();
 }
