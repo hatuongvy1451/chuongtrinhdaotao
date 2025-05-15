@@ -63,14 +63,9 @@ function capNhatPhanCong(event) {
     const soTietThucHien = document.getElementById("suaSoTietThucHien").value;
     const soTietThucTe = document.getElementById("suaSoTietThucTe").value;
     const trangThai = document.getElementById("suaTrangThaiPhanCong").value;
-    
-    if(soTietThucHien < 1){
-        alert("Số tiết thực hiện phải lớn hơn hoặc bằng 1!");
-        return;
-    }
-    
-    if(soTietThucTe < 1){
-        alert("Số tiết thực tế phải lớn hơn hoặc bằng 1");
+
+    if (isNaN(soTietThucTe) || soTietThucTe < 1) {
+        alert("Số tiết thực tế phải là số và lớn hơn hoặc bằng 1!");
         return;
     }
 
