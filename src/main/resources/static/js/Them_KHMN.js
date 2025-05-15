@@ -112,7 +112,13 @@ function themKeHoachMoNhom(event){
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error("Thêm mới kế hoạch mở nhóm thất bại");
+            if (response.status === 409) { 
+                return response.json().then(err => {
+                    throw new Error(err.message || "Mã nhóm đã tồn tại!");
+                });
+            } else {
+                throw new Error("Thêm kế hoạch mở nhóm thất bại!");
+            }
         }
         return response.json();
     })
@@ -124,7 +130,7 @@ function themKeHoachMoNhom(event){
     })
     .catch(error => {
         console.error("Lỗi thêm kế hoạch mở nhóm!", error);
-        alert("Lỗi khi thêm kế hoạch mở nhóm!");
+        alert(error.message);
     });
 }
 
