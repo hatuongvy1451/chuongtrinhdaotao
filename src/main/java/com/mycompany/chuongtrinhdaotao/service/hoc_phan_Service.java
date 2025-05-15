@@ -21,7 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -169,8 +171,15 @@ public class hoc_phan_Service {
         return hocPhanRepository.findHocPhanByCtdtViaKhungCT(idThongTin);
     }
     
-    public hoc_phan addHocPhan(hoc_phan hocPhan){
+    public hoc_phan themHocPhan(hoc_phan hocPhan) {
+        if (hocPhanRepository.existsByMaHocPhan(hocPhan.getMaHocPhan())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Mã học phần đã tồn tại!");
+        }
         return hocPhanRepository.save(hocPhan);
+    }
+    
+    public boolean existsByMaHocPhan(String maHocPhan) {
+        return hocPhanRepository.existsByMaHocPhan(maHocPhan);
     }
     
     public List<hoc_phan> getHocPhanByIdKhoiKienThuc(int idKhoiKT) {
