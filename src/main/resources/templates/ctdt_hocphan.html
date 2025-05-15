@@ -199,7 +199,7 @@
                         <tbody class="text-center">
                             <tr th:each="hocPhan : ${hocPhanList}"> 
                                 <td th:text="${hocPhan.id}"></td>
-                                <td th:text="${hocPhan.khungChuongTrinh.maKhoi + ' - ' + hocPhan.khungChuongTrinh.tenKhoi}"></td>
+                                <td th:text="${hocPhan.khungChuongTrinh.ctdt.maCTDT + ' - ' + hocPhan.khungChuongTrinh.tenKhoi}"></td>
                                 <td th:text="${hocPhan.maHocPhan}"></td>
                                 <td th:text="${hocPhan.tenHocPhan}"></td>
                                 <td th:text="${hocPhan.soTinChi}"></td>
