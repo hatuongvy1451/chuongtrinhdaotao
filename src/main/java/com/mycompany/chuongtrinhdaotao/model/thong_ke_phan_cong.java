@@ -22,6 +22,10 @@ public class thong_ke_phan_cong {
     private Long tongTiet;
     private boolean isTotalRow = false;
     private Long tongTietMon; // Total hours for this subject (soTietCong × total classes)
+    
+    public thong_ke_phan_cong(){
+        
+    }
     // Constructor matching repository query
     public thong_ke_phan_cong(Integer idGiangVien, String maGiangVien, String tenGiangVien,
                               String chuyenMon, Integer loaiGiangVien, Integer trangThai,
