@@ -50,7 +50,7 @@ function themKeHoachDayHoc(event){
     const namHocRegex = /^\d{4}-\d{4}$/;
 
     if (isNaN(hocKyThucHien) || hocKyThucHien < 1) {
-        alert("Học kỳ thực hiện phải là số nguyên >= 1!");
+        alert("Học kỳ thực hiện phải là số nguyên lớn hơn hoặc bằng 1!");
         return;
     }
 
