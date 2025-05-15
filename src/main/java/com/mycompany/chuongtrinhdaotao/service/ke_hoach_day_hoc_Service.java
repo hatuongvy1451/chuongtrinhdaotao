@@ -4,6 +4,7 @@
  */
 package com.mycompany.chuongtrinhdaotao.service;
 
+import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_day_hoc_Repository;
 import java.util.ArrayList;
@@ -87,5 +88,9 @@ public class ke_hoach_day_hoc_Service {
    
     public ke_hoach_day_hoc themKeHoachDayHoc(ke_hoach_day_hoc khdh){
         return keHoachDayHocRepository.save(khdh);
+    }
+    
+    public List<hoc_phan> findHocPhanDuocMo() {
+        return keHoachDayHocRepository.findHocPhanDuocMo();
     }
 }
