@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bảng Kế Hoạch Dạy Học Tất Cả Chương Trình</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+
+    .curriculum-section {
+      margin-bottom: 50px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      page-break-after: always;
+    }
+
+    .curriculum-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #1a5276;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #ffffff;
+    }
+
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    th {
+      background-color: #f1f1f1;
+      color: #212529;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f9f9f9;
+    }
+
+    .khoi-ten {
+      background-color: #e9f7ef;
+      font-weight: bold;
+      text-align: left;
+      font-size: 1em;
+      color: #117864;
+    }
+
+    .hoc-ky-active {
+      background-color: #d4edda !important;
+      font-weight: bold;
+      color: #155724;
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        color: black;
+      }
+      .curriculum-section {
+        box-shadow: none;
+        padding: 0;
+      }
+      table {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+
+</head>
+<body>
+<h2>Kế hoạch dạy học tất cả chương trình</h2>
+
+<div th:if="${allHocPhanData != null and !allHocPhanData.isEmpty()}">
+  <th:block th:each="curriculum : ${allHocPhanData}">
+    <div class="curriculum-section">
+      <span class="curriculum-title" th:text="${curriculumNames[curriculum.key]} ?: 'Không rõ tên'"></span>
+
+      <table>
+        <thead>
+        <tr>
+          <th rowspan="2">STT</th>
+          <th rowspan="2">Mã HP</th>
+          <th rowspan="2">Tên Học Phần</th>
+          <th rowspan="2">Số TC</th>
+          <th colspan="12">Học kỳ thực hiện</th>
+          <th rowspan="2">Mã HP trước</th>
+        </tr>
+        <tr>
+          <th th:each="i : ${#numbers.sequence(1, 12)}" th:text="${i}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="entry : ${curriculum.value}">
+          <tr>
+            <td colspan="16" class="khoi-ten" th:text="${entry.key}">Tên khối</td>
+          </tr>
+          <tr th:each="hp, stat : ${entry.value}">
+            <td th:text="${stat.index + 1}">1</td>
+            <td th:text="${hp.maHocPhan}">Mã HP</td>
+            <td th:text="${hp.tenHocPhan}">Tên HP</td>
+            <td th:text="${hp.soTinChi}">3</td>
+            <td th:each="i : ${#numbers.sequence(1, 12)}"
+                th:class="${hp['hocKy' + i]} ? 'hoc-ky-active' : ''">
+              <span th:if="${hp['hocKy' + i]}">✓</span>
+            </td>
+            <td th:text="${hp.maHPTruoc}">Mã HP trước</td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+  </th:block>
+</div>
+
+<div th:if="${allHocPhanData == null or allHocPhanData.isEmpty()}">
+  <p>Không có dữ liệu kế hoạch học phần nào được tìm thấy.</p>
+</div>
+<script>
+  window.onload = function () {
+    window.print();
+  };
+</script>
+
+</body>
+</html>

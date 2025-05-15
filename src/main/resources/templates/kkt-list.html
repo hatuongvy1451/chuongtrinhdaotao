@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bảng Kế Hoạch Dạy Học Tất Cả Chương Trình</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #2c3e50;
+    }
+
+    .curriculum-section {
+      margin-bottom: 50px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      page-break-after: always;
+    }
+
+    .curriculum-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #1a5276;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #ffffff;
+    }
+
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+
+    th {
+      background-color: #f1f1f1;
+      color: #212529;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f9f9f9;
+    }
+
+    .khoi-ten {
+      background-color: #e9f7ef;
+      font-weight: bold;
+      text-align: left;
+      font-size: 1em;
+      color: #117864;
+    }
+
+    @media print {
+      body {
+        background-color: white;
+        color: black;
+      }
+      .curriculum-section {
+        box-shadow: none;
+        padding: 0;
+      }
+      table {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="print-controls">
+  <button class="print-btn" onclick="window.print()">
+    <i class="fas fa-print"></i> In trang
+  </button>
+
+</div>
+<h2>Danh mục học phần tất cả chương trình</h2>
+
+<div th:if="${allHocPhanData != null and !allHocPhanData.isEmpty()}">
+  <th:block th:each="curriculum : ${allHocPhanData}">
+    <div class="curriculum-section">
+      <span class="curriculum-title" th:text="${curriculumNames[curriculum.key]} ?: 'Không rõ tên'"></span>
+
+      <table>
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã HP</th>
+          <th>Tên Học Phần</th>
+          <th>Số TC</th>
+          <th>Lý thuyết</th>
+
+          <th>Thực hành</th>
+          <th>Thực tập</th>
+          <th>Hệ số</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="khoiEntry : ${curriculum.value}">
+          <tr>
+            <td colspan="9" class="khoi-ten" th:text="${khoiEntry.key}">Tên khối</td>
+          </tr>
+          <tr th:each="hocPhan, stat : ${khoiEntry.value}">
+            <td th:text="${stat.index + 1}">1</td>
+            <td th:text="${hocPhan['maHocPhan']}">Mã HP</td>
+            <td th:text="${hocPhan['tenHocPhan']}">Tên HP</td>
+            <td th:text="${hocPhan['soTinChi']}">TC</td>
+            <td th:text="${hocPhan['soTietLyThuyet']}">LT</td>
+
+            <td th:text="${hocPhan['soTietThucHanh']}">TT</td>
+            <td th:text="${hocPhan['soTietThucTap']}">TT</td>
+            <td th:text="${hocPhan['heSoHocPhan']}">HS</td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+  </th:block>
+</div>
+
+<div th:if="${allHocPhanData == null or allHocPhanData.isEmpty()}">
+  <p>Không có dữ liệu kế hoạch học phần nào được tìm thấy.</p>
+</div>
+</body>
+<script>
+  // Auto-print when page loads (optional)
+  window.onload = function() {
+    // You can uncomment this if you want auto-printing
+     window.print();
+  };
+</script>
+</html>
