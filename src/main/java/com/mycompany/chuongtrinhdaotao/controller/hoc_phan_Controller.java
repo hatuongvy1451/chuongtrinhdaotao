@@ -101,9 +101,15 @@ public class hoc_phan_Controller {
     }
     
     @PostMapping("/hocphan/them")
-    public ResponseEntity<hoc_phan> addHocPhan(@RequestBody hoc_phan hocPhan){
-        hoc_phan saved = hocPhanService.addHocPhan(hocPhan);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> themHocPhan(@RequestBody hoc_phan hocPhan) {
+        if (hocPhanService.existsByMaHocPhan(hocPhan.getMaHocPhan())) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", "Mã học phần đã tồn tại!"));
+        }
+
+        hocPhanService.themHocPhan(hocPhan);
+        return ResponseEntity.ok(hocPhan);
     }
     
     @GetMapping("/xemhocphantheokhoi/{idKhoiKT}")
