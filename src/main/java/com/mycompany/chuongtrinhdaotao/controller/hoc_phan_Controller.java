@@ -4,12 +4,16 @@
  */
 package com.mycompany.chuongtrinhdaotao.controller;
 
+import com.mycompany.chuongtrinhdaotao.model.HocPhanDTO;
 import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.khung_chuong_trinh;
 import com.mycompany.chuongtrinhdaotao.service.hoc_phan_Service;
+import com.mycompany.chuongtrinhdaotao.service.ke_hoach_day_hoc_Service;
 import com.mycompany.chuongtrinhdaotao.service.khung_chuong_trinh_Service;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +36,9 @@ public class hoc_phan_Controller {
     
     @Autowired
     private hoc_phan_Service hocPhanService;
+    
+    @Autowired
+    private ke_hoach_day_hoc_Service khdhService;
     
     @Autowired
     private khung_chuong_trinh_Service khungChuongTrinhService;
@@ -103,5 +110,38 @@ public class hoc_phan_Controller {
     @ResponseBody
     public List<hoc_phan> getHocPhanByIdKhoiKienThuc(@PathVariable int idKhoiKT) {
         return hocPhanService.getHocPhanByIdKhoiKienThuc(idKhoiKT);
+    }
+    
+    @GetMapping("/ctdt/{ctdtId}")
+    public String getHocPhanTheoCTDT(@PathVariable int ctdtId, Model model) {
+        List<HocPhanDTO> hocPhans = hocPhanService.getHocPhanByCTDT(ctdtId);
+
+        // Group by "tenKhoi"
+        Map<String, List<HocPhanDTO>> hocPhanTheoKhoi = hocPhans.stream()
+                .collect(Collectors.groupingBy(HocPhanDTO::getTenKhoi, LinkedHashMap::new, Collectors.toList()));
+
+        model.addAttribute("hocPhanTheoKhoi", hocPhanTheoKhoi);
+        return "kkt-list"; // resources/templates/hocphan/list.html
+    }
+    
+    @GetMapping("/kehoach2")
+    public String showAllHocPhanTheoKhoi(Model model) {
+        Map<Integer, Map<String, List<Map<String, Object>>>> allHocPhanData = hocPhanService.getAllHocPhanTheoKhoiVoiHocKy();
+
+        // Debug output
+        allHocPhanData.forEach((curriculumId, khoiMap) -> {
+            System.out.println("Curriculum ID: " + curriculumId);
+            khoiMap.forEach((khoiName, hocPhanList) -> {
+                System.out.println(" Khối: " + khoiName);
+                hocPhanList.forEach(hocPhan -> {
+                    System.out.println("  Học phần: " + hocPhan.get("maHocPhan") +
+                            " - Số TC: " + hocPhan.get("soTinChi"));
+                });
+            });
+        });
+
+        model.addAttribute("allHocPhanData", allHocPhanData);
+        model.addAttribute("curriculumNames", khdhService.getAllCurriculumNames());
+        return "kkt-list";
     }
 }
