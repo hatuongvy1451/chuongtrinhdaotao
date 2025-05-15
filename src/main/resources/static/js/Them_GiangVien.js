@@ -26,7 +26,13 @@ function themGiangVien(event){
     })
     .then(response=>{
         if(!response.ok){
-           throw new Error("Thêm mới giảng viên thất bại");
+           if (response.status === 409) { 
+                return response.json().then(err => {
+                    throw new Error(err.message || "Mã giảng viên đã tồn tại!");
+                });
+            } else {
+                throw new Error("Thêm giảng viên thất bại!");
+            }
         }
         return response.json();
     })
@@ -38,7 +44,7 @@ function themGiangVien(event){
     })
     .catch(error=>{
         console.error("Lỗi thêm giảng viên!", error);
-        alert("Lỗi khi thêm giảng viên");
+        alert(error.message);
     });
 }
 
