@@ -9,7 +9,9 @@ import com.mycompany.chuongtrinhdaotao.repository.khoi_kien_thuc_Repository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -61,7 +63,14 @@ public class khoi_kien_thuc_Service {
     }
     
     //Thêm
-    public khoi_kien_thuc addKhoiKiênThuc(khoi_kien_thuc khoiKienThuc){
+    public khoi_kien_thuc addKhoiKienThuc(khoi_kien_thuc khoiKienThuc) {
+        if (khoiKienKhucRepository.existsByMaKhoi(khoiKienThuc.getMaKhoi())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Mã khối kiến thức đã tồn tại!");
+        }
         return khoiKienKhucRepository.save(khoiKienThuc);
+    }
+    
+    public boolean existsByMaKhoi(String maKhoi) {
+        return khoiKienKhucRepository.existsByMaKhoi(maKhoi);
     }
 }
