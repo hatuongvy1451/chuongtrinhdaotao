@@ -178,7 +178,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Mã nhóm</th>
-                                <th>Học phần</th>
+                                <th>Mã HP</th>
+                                <th>Tên học phần</th>
                                 <th>Năm học</th>
                                 <th>Học kỳ</th>
                                 <th>Số lượng SV</th>
@@ -193,6 +194,7 @@
                             <tr th:each="kehoachmn : ${keHoachMoNhom}">
                                 <td th:text="${kehoachmn.id}"></td>
                                 <td th:text="${kehoachmn.maNhom}"></td>
+                                <td th:text="${kehoachmn.hocPhan.maHocPhan}"></td>
                                 <td th:text="${kehoachmn.hocPhan.tenHocPhan}"></td>
                                 <td th:text="${kehoachmn.namHoc}"></td>
                                 <td th:text="${kehoachmn.hocKy}"></td>
