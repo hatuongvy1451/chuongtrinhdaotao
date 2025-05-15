@@ -4,7 +4,7 @@
  */
 
 function loadHocPhan() {
-    fetch('/hocphan/trangthai')
+    fetch('/kehoachdayhoc/hocphan')
         .then(response => response.json())
         .then(data => {
             const select = document.getElementById('hocPhanMoNhom');
