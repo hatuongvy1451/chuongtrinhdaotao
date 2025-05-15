@@ -67,4 +67,6 @@ public interface hoc_phan_Repository extends JpaRepository<hoc_phan, Integer>{
              "WHERE kct.ctdt.id = :idCTDT " +
              "ORDER BY kct.tenKhoi, hp.maHocPhan")
      List<Object[]> findHocPhanTheoKhoiVoiHocKy(@Param("idCTDT") int idCTDT);
+     
+     boolean existsByMaHocPhan(String maHocPhan);
 }
