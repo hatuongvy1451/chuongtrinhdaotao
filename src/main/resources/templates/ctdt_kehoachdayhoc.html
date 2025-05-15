@@ -184,7 +184,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>CTĐT</th>
-                                <th>Học phần</th>
+                                <th>Mã HP</th>
+                                <th>Tên học phần</th>
                                 <th>Học kỳ thực hiện</th>
                                 <th>Năm học</th>
                                 <th>Trạng thái</th>
@@ -196,6 +197,7 @@
                             <tr th:each="kehoachdh : ${keHoachDayHoc}">
                                 <td th:text="${kehoachdh.id}"></td>
                                 <td th:text="${kehoachdh.ctdt.maCTDT}"></td>
+                                <td th:text="${kehoachdh.hocPhan.maHocPhan}"></td>
                                 <td th:text="${kehoachdh.hocPhan.tenHocPhan}"></td>
                                 <td th:text="${kehoachdh.hocKyThucHien}"></td>
                                 <td th:text="${kehoachdh.namHoc}"></td>
