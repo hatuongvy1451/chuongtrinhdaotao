@@ -147,8 +147,14 @@ public class giang_vien_Controller {
     }
     
     @PostMapping("/giangvien/them")
-    public ResponseEntity<giang_vien> themGiangVien(@RequestBody giang_vien giangVien ){
-        giang_vien saved = gvService.themGiangVien(giangVien);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> themGiangVien(@RequestBody giang_vien giangVien) {
+        if (gvService.existsByMaGiangVien(giangVien.getMaGiangVien())) {
+            return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", "Mã giảng viên đã tồn tại!"));
+        }
+
+        gvService.addGiangVien(giangVien);
+        return ResponseEntity.ok(giangVien);
     }
 }
