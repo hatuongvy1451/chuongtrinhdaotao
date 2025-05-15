@@ -109,7 +109,7 @@
         <tbody>
         <th:block th:each="khoiEntry : ${curriculum.value}">
           <tr>
-            <td colspan="9" class="khoi-ten" th:text="${khoiEntry.key}">Tên khối</td>
+            <td colspan="8" class="khoi-ten" th:text="${khoiEntry.key}">Tên khối</td>
           </tr>
           <tr th:each="hocPhan, stat : ${khoiEntry.value}">
             <td th:text="${stat.index + 1}">1</td>
