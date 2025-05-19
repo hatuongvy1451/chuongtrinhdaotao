@@ -39,7 +39,7 @@ function loadHocPhanTheoKhoiKienThuc() {
             // Khởi tạo lại DataTable
             $('#tableHPTheoKhoi').DataTable({
                 paging: true,
-                pageLength: 7,
+                pageLength: 5,
                 lengthChange: false,
                 info: false,
                 searching: true,
