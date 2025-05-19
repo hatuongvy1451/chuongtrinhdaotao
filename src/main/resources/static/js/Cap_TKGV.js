@@ -37,6 +37,12 @@ function luuTaiKhoanGV(event){
     const tenDangNhap = document.getElementById("tenDangNhapGV").value;
     const matKhau = document.getElementById("matKhauGV").value;
     
+    if (matKhau.length < 6) {
+        alert("Mật khẩu phải có ít nhất 6 ký tự!");
+        saveButton.disabled = false;
+        return;
+    }
+    
     const tkgiangVienData = {
         tenDangNhap: tenDangNhap,
         matKhau: matKhau,
