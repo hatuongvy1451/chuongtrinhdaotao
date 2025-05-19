@@ -176,7 +176,7 @@
                                 <select id="khoiSelect" class="form-select" onchange="loadHocPhanTheoKhoiKienThuc()">
                                     <option th:each="kkt : ${khoiKienThuc}" 
                                             th:value="${kkt.id}"
-                                            th:text="${kkt.id} + ' - ' + ${kkt.tenKhoi}">
+                                            th:text="${kkt.maKhoi} + ' - ' + ${kkt.tenKhoi}">
                                     </option>
                                 </select>
                         </div>
