@@ -519,7 +519,15 @@
                   },
                   infoEmpty: "Không có dữ liệu",
                   zeroRecords :"Không tìm thấy kết quả phù hợp"
-              }
+              },
+              
+              drawCallback: function () {
+                    let api = this.api();
+                    let pageInfo = api.page.info();
+                    // Nếu chỉ có 1 trang thì ẩn phân trang
+                    $(api.table().container()).find('.dataTables_paginate')
+                        .css('display', pageInfo.pages <= 1 ? 'none' : 'block');
+                }
            });
         });
     </script>
