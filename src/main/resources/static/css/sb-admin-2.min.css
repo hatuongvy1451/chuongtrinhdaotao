@@ -9156,3 +9156,21 @@ footer.sticky-footer .copyright{
 body.sidebar-toggled footer.sticky-footer{
     width:100%
 }
+
+/*Thêm css bên ngoài*/
+body, html {
+    height: 100%;
+    overflow: hidden; /* Ngăn cuộn toàn trang */
+}
+
+#wrapper {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#content-wrapper {
+    flex: 1;
+    overflow-y: auto; /* Chỉ phần nội dung bên phải được cuộn */
+    max-height: 100vh;
+}
