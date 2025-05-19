@@ -42,7 +42,7 @@ function themChuongTrinhDaoTao(event) {
     })
     .then(data => {
         alert("Thêm chương trình đào tạo thành công!");
-        var myModal = bootstrap.Modal.getInstance(document.getElementById('modalAdd'));
+        var myModal = new bootstrap.Modal(document.getElementById("modalAdd"));
         myModal.hide();
         location.reload();
     })
