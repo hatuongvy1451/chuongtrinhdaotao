@@ -171,7 +171,9 @@ public class giang_vien_Service {
                 String trangThaiStr = getCellStringValue(row.getCell(6)).trim();
                 GV.setTrangThai(trangThaiStr.equalsIgnoreCase("Đang làm việc") ? 1 : 0);
 
-                giangVienList.add(GV);
+                if (!gvRepository.existsByMaGiangVien(GV.getMaGiangVien())) {
+                    giangVienList.add(GV); // chỉ thêm nếu chưa tồn tại
+                }
             }
         });
 
