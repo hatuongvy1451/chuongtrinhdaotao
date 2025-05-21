@@ -6,8 +6,10 @@ package com.mycompany.chuongtrinhdaotao.controller;
 
 import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
+import com.mycompany.chuongtrinhdaotao.model.thong_tin_chung;
 import com.mycompany.chuongtrinhdaotao.service.hoc_phan_Service;
 import com.mycompany.chuongtrinhdaotao.service.ke_hoach_day_hoc_Service;
+import com.mycompany.chuongtrinhdaotao.service.thong_tin_chung_Service;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +37,17 @@ public class ke_hoach_day_hoc_Controller {
     private ke_hoach_day_hoc_Service khdhService;
     
     @Autowired
+    private thong_tin_chung_Service thongTinChungService;
+    
+    @Autowired
     private hoc_phan_Service hocPhanService;
     
     @GetMapping("/kehoachdayhoc")
     public String getKeHoachDayHocList(Model model){
         List<ke_hoach_day_hoc> keHoachDayHoc = khdhService.getAllKeHoachDayHoc();
         model.addAttribute("keHoachDayHoc", keHoachDayHoc);
+        List<thong_tin_chung> thongTinChungList = thongTinChungService.getAllThongTinChung();
+        model.addAttribute("thongTinChungList", thongTinChungList);
         return "ctdt_kehoachdayhoc";
     }
     
@@ -114,5 +121,11 @@ public class ke_hoach_day_hoc_Controller {
         model.addAttribute("curriculumNames", curriculumNames);
 
         return "kehoach";
+    }
+    
+    @GetMapping("/kehoachdayhoc/loc-theo-ctdt/{ctdt}")
+    public ResponseEntity<List<ke_hoach_day_hoc>> getKHDHTheoCTDT(@PathVariable thong_tin_chung ctdt) {
+        List<ke_hoach_day_hoc> dsCotDiem = khdhService.findKHDHByCTDT(ctdt);
+        return ResponseEntity.ok(dsCotDiem);
     }
 }
