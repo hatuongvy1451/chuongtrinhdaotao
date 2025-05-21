@@ -8,6 +8,7 @@ import com.mycompany.chuongtrinhdaotao.model.hoc_phan;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_day_hoc;
 import com.mycompany.chuongtrinhdaotao.model.ke_hoach_mo_nhom;
 import com.mycompany.chuongtrinhdaotao.model.phan_cong_giang_day;
+import com.mycompany.chuongtrinhdaotao.model.thong_tin_chung;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_day_hoc_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.ke_hoach_mo_nhom_Repository;
 import com.mycompany.chuongtrinhdaotao.repository.phan_cong_giang_day_Repository;
@@ -166,5 +167,9 @@ public class ke_hoach_day_hoc_Service {
             result.put(id, name);
         }
         return result;
+    }
+    
+    public List<ke_hoach_day_hoc> findKHDHByCTDT(thong_tin_chung ctdt) {
+        return keHoachDayHocRepository.findByCtdt(ctdt);
     }
 }
