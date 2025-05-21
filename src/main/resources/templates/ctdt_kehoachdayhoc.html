@@ -164,6 +164,19 @@
                 <!--Quản lý kế hoạch dạy học-->
                 <div class="container-fluid mt-4">
                     <h2 class="mb-4">Quản lý Kế hoạch Dạy học</h2>
+                    
+                    <div class="form-row">
+                                <!-- ComboBox Lọc theo Đề cương chi tiết -->
+                                <div class="form-group col-md-4" th:if="${session.nguoiDungDangNhap.vaiTro == 0}">
+                                    <label for="filterCTDT">Lọc theo Chương trình đào tạo</label>
+                                    <select class="form-control" id="filterCTDT">
+                                        <option value="" disabled selected>--- Chọn chương trình đào tạo ---</option>
+                                        <th:block th:each="thongTinChung : ${thongTinChungList}">
+                                            <option th:value="${thongTinChung.id}" th:text="${thongTinChung.maCTDT + ' - ' + thongTinChung.tenCTDT}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                    </div>
 
                     <!-- Nút chức năng -->
                     <div class="mb-3">
@@ -192,7 +205,7 @@
                                 <th th:if="${session.nguoiDungDangNhap.vaiTro == 0}">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
+                        <tbody class="text-center" id="khdhBody">
                             <!-- Dữ liệu sẽ render ở đây -->
                             <tr th:each="kehoachdh : ${keHoachDayHoc}">
                                 <td th:text="${kehoachdh.id}"></td>
@@ -367,6 +380,8 @@
     <script src="js/Xoa_KHDH.js"></script>
     
     <script src="js/Sua_ThongTin.js"></script>
+    
+    <script src="js/Loc_KHDHTheoCTDT.js"></script>
 
     <!-- Thêm Script DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
